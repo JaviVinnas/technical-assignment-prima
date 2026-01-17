@@ -1,7 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+import { UserDashboardPage } from "./features/user-dashboard";
+
 import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error(
+    "Root element not found. Make sure there is a <div id='root'></div> in your HTML.",
+  );
+}
+const root = ReactDOM.createRoot(rootElement);
 
-root.render(<React.StrictMode>👋</React.StrictMode>);
+root.render(
+  <React.StrictMode>
+    <UserDashboardPage />
+  </React.StrictMode>,
+);
