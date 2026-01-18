@@ -1,0 +1,84 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-surface-default);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  border: var(--border-width-default) solid var(--colour-border-default);
+  gap: var(--spacing-md);
+}
+
+.card__badge-slot {
+  display: flex;
+  align-self: flex-start;
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--typography-title-m-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--typography-title-m-line-height);
+  color: var(--colour-text-primary);
+}
+
+.card__subtitle {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--typography-text-l-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--typography-text-l-line-height);
+  color: var(--colour-text-secondary);
+  margin-top: calc(var(--spacing-sm) * -1);
+}
+
+.card__key-value-pair {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-sm) / 2);
+}
+
+.card__key {
+  font-family: var(--font-family-base);
+  font-size: var(--typography-text-m-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--typography-text-m-line-height);
+  color: var(--colour-text-secondary);
+}
+
+.card__value {
+  font-family: var(--font-family-base);
+  font-size: var(--typography-text-m-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--typography-text-m-line-height);
+  color: var(--colour-text-primary);
+}
+
+.card__value--link {
+  color: var(--colour-accent-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color var(--transition-base, 200ms) ease-in-out;
+}
+
+.card__value--link:hover {
+  color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
+}
+
+.card__value--link:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-primary);
+  outline-offset: var(--outline-offset-focus);
+}
+
+.card__value--link:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.card__action {
+  display: flex;
+  margin-top: var(--spacing-md);
+}
+
+.card__action .button {
+  width: 100%;
+}

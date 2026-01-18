@@ -1,0 +1,41 @@
+import type { User, UserPermission } from "../types";
+
+/**
+ * Filters users based on search query and selected permissions.
+ *
+ * Applies two filters with AND logic:
+ * 1. Text search: matches if user name contains the search query (case-insensitive)
+ * 2. Permission filter: matches if user permission is in selected permissions array
+ *    (OR logic - if no permissions selected, shows all users)
+ *
+ * @param users - Array of users to filter
+ * @param searchQuery - Search query string to match against user names
+ * @param selectedPermissions - Array of selected permission levels for filtering
+ * @returns Filtered array of users matching both criteria
+ *
+ * @example
+ * ```tsx
+ * const filtered = filterUsers(users, "john", ["admin", "editor"]);
+ * // Returns users with "john" in name AND (admin OR editor permission)
+ * ```
+ */
+export function filterUsers(
+  users: User[],
+  searchQuery: string,
+  selectedPermissions: UserPermission[],
+): User[] {
+  return users.filter((user) => {
+    // Text search: match if name contains search query (case-insensitive)
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      user.name.toLowerCase().includes(searchQuery.toLowerCase().trim());
+
+    // Permission filter: match if permission is in selected permissions
+    // If no permissions selected, show all users (OR logic)
+    const matchesPermission =
+      selectedPermissions.length === 0 || selectedPermissions.includes(user.permission);
+
+    // Both filters must match (AND logic)
+    return matchesSearch && matchesPermission;
+  });
+}

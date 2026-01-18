@@ -3,15 +3,14 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding-left: var(--spacing-lg);
-  padding-right: var(--spacing-lg);
+  padding-inline: var(--spacing-lg);
   border: none;
   background-color: var(--colour-accent-primary);
   color: var(--colour-background);
   font-family: var(--font-family-base);
   font-size: inherit;
   cursor: pointer;
-  transition: background-color var(--transition-base, 200ms) ease-in-out;
+  transition: background-color var(--transition-base, 200ms) var(--transition-timing);
   width: auto;
   opacity: 1;
   transform: rotate(0deg);
@@ -36,7 +35,7 @@
 }
 
 .button:disabled {
-  opacity: 0.6;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 

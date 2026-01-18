@@ -1,6 +1,5 @@
 .search-box {
-  /* Component-specific gap not part of standard spacing scale */
-  --search-gap: 1.25rem;
+  --search-gap: var(--spacing-md-plus);
   display: flex;
   align-items: stretch;
   width: 100%;
@@ -21,7 +20,7 @@
   height: var(--button-height-big);
   box-sizing: border-box;
   padding-block: var(--spacing-md); /* Adjusted to better centre text vertically */
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
 }
 
 .search-box__input::placeholder {

@@ -5,6 +5,8 @@
   /* Colour Tokens - Text */
   --colour-text-primary: #1b2134;
   --colour-text-secondary: #63666a;
+  --colour-text-on-dark: #ffffff;
+  --colour-text-on-light: #292929;
 
   /* Colour Tokens - Border */
   --colour-border-default: #d3d3dc;
@@ -24,14 +26,39 @@
   /* Spacing Tokens */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 1rem; /* 16px */
+  --spacing-md-plus: 1.25rem; /* 20px - between md and lg */
   --spacing-lg: 1.875rem; /* 30px */
   --spacing-xl: 2rem; /* 32px */
+  --spacing-checkmark-offset: -0.625rem; /* -10px */
 
   /* Layout Spacing Tokens */
   --spacing-dashboard-top: 286px; /* Specific layout spacing for dashboard */
 
   /* Layout Tokens */
   --layout-max-width-content: 600px;
+  --layout-max-width-results: 1200px; /* 1200px */
+
+  /* Grid Tokens */
+  --grid-min-column-width: 17.5rem; /* 280px */
+
+  /* Breakpoint Tokens */
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+
+  /* Shadow Tokens */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* Z-Index Tokens */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
 
   /* Focus Outline Tokens */
   --outline-width-focus: 2px;
@@ -88,6 +115,20 @@
   --typography-text-s-size: 0.75rem; /* 12px */
   --typography-text-s-line-height: 1.7; /* 170% */
   --typography-text-s-weight: var(--font-weight-light);
+
+  /* Typography Scale - Badge */
+  --typography-badge-line-height: 0.667; /* 8px / 12px - unitless for scaling */
+
+  /* Typography - General Line Height Tokens */
+  --line-height-normal: 1.5;
+
+  /* Typography - Letter Spacing Tokens */
+  --letter-spacing-uppercase: 0.1em;
+
+  /* Opacity Tokens */
+  --opacity-full: 1;
+  --opacity-disabled: 0.6;
+  --opacity-disabled-placeholder: 0.5; /* 50% opacity for disabled placeholder text */
 }
 
 body {

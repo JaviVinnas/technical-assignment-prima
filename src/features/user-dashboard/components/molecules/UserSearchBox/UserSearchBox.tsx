@@ -1,0 +1,60 @@
+import { type InputHTMLAttributes, useState } from "react";
+
+import { SearchBox } from "../../../../../components/molecules/SearchBox";
+import { useUserDashboardContext } from "../../../context";
+
+import "./UserSearchBox.css";
+
+/**
+ * UserSearchBox component for user dashboard search functionality.
+ *
+ * Provides search functionality for the user dashboard. Includes a search
+ * label and integrates with the dashboard's filtering system. Search
+ * queries are persisted across sessions and shared with other dashboard
+ * components.
+ *
+ * User interactions:
+ * - Typing updates the search input without immediately triggering filtering
+ * - Clicking Search or pressing Enter applies the search query
+ * - Search state is synchronised with permission filters
+ *
+ * @param props - UserSearchBox configuration
+ * @param props.id - Input element ID (required for accessibility)
+ * @param props.placeholder - Placeholder text for the input (defaults to SearchBox default)
+ * @param props.className - Additional CSS classes applied to the container
+ */
+export interface UserSearchBoxProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> {
+  className?: string;
+}
+
+export function UserSearchBox({ id, placeholder, className = "", ...rest }: UserSearchBoxProps) {
+  const { searchQuery, setSearchQuery } = useUserDashboardContext();
+  const [inputValue, setInputValue] = useState(searchQuery);
+
+  const userSearchBoxClassName = `user-search-box ${className}`.trim();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearchQuery(inputValue);
+  };
+
+  return (
+    <section className={userSearchBoxClassName}>
+      <label htmlFor={id} className="user-search-box__label">
+        WHAT ARE YOU LOOKING FOR?
+      </label>
+      <SearchBox
+        id={id}
+        value={inputValue}
+        onChange={handleChange}
+        onSearch={handleSearch}
+        placeholder={placeholder}
+        {...rest}
+      />
+    </section>
+  );
+}
