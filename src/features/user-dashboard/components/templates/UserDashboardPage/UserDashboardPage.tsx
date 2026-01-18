@@ -42,16 +42,18 @@ export function UserDashboardPage() {
           <span className="user-dashboard__title--default"> Dashboard</span>
         </h1>
 
-        <section className="user-dashboard__search-section">
-          <UserSearchBox id="search-input" />
-        </section>
+        <div className="user-dashboard__sticky-controls">
+          <section className="user-dashboard__search-section">
+            <UserSearchBox id="search-input" />
+          </section>
 
-        <section className="user-dashboard__filters-section">
-          <UserFiltersRow />
-        </section>
+          <section className="user-dashboard__filters-section">
+            <UserFiltersRow />
+          </section>
 
-        <div className="user-dashboard__separator-wrapper">
-          <HorizontalSeparator />
+          <div className="user-dashboard__separator-wrapper">
+            <HorizontalSeparator />
+          </div>
         </div>
 
         <section className="user-dashboard__results-section">
