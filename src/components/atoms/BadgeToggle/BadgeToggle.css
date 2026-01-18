@@ -99,7 +99,7 @@
   flex-shrink: 0;
   opacity: 0;
   overflow: hidden;
-  margin-left: var(--spacing-checkmark-offset);
+  margin-left: var(--spacing-icon-offset);
   transition:
     width var(--transition-base, 200ms) var(--transition-timing-interaction),
     height var(--transition-base, 200ms) var(--transition-timing-interaction),

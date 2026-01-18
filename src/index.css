@@ -58,10 +58,10 @@ ol {
   --spacing-xs: 0.75rem; /* 12px */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 1rem; /* 16px */
-  --spacing-lg-sm: 1.25rem; /* 20px - between md and lg */
-  --spacing-lg: 1.875rem; /* 30px */
-  --spacing-xl: 2rem; /* 32px */
-  --spacing-checkmark-offset: -0.625rem; /* -10px */
+  --spacing-lg: 1.25rem; /* 20px */
+  --spacing-xl: 1.875rem; /* 30px */
+  --spacing-2xl: 2rem; /* 32px */
+  --spacing-icon-offset: -0.625rem; /* -10px */
 
   /* Layout Spacing Tokens */
   /* Space from top of viewport to main content start (accommodates fixed header/hero space) */

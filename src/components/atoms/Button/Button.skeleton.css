@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-inline: var(--spacing-lg);
+  padding-inline: var(--spacing-xl);
   background-color: var(--colour-skeleton-background);
   width: 100%;
 }

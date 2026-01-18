@@ -1,5 +1,5 @@
 .search-box {
-  --search-gap: var(--spacing-lg-sm);
+  --search-gap: var(--spacing-lg);
   display: flex;
   align-items: stretch;
   width: 100%;
