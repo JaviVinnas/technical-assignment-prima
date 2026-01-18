@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useRef, useState } from "react";
+import { type InputHTMLAttributes, useState } from "react";
 
 import { SearchBox } from "../../../../../components/molecules/SearchBox";
 import { useUserDashboardContext } from "../../../context";
@@ -16,6 +16,7 @@ import "./UserSearchBox.css";
  * User interactions:
  * - Typing updates the search input without immediately triggering filtering
  * - Clicking Search or pressing Enter applies the search query
+ * - Clearing the input automatically triggers a search to show all users
  * - Search state is synchronised with permission filters
  *
  * @param props - UserSearchBox configuration
@@ -31,18 +32,15 @@ export interface UserSearchBoxProps
 export function UserSearchBox({ id, placeholder, className = "", ...rest }: UserSearchBoxProps) {
   const { searchQuery, setSearchQuery } = useUserDashboardContext();
   const [inputValue, setInputValue] = useState(searchQuery);
-  const inputValueRef = useRef(searchQuery);
 
   const userSearchBoxClassName = `user-search-box ${className}`.trim();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    inputValueRef.current = newValue;
-    setInputValue(newValue);
+    setInputValue(event.target.value);
   };
 
-  const handleSearch = () => {
-    setSearchQuery(inputValueRef.current);
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
   };
 
   return (

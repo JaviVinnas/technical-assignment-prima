@@ -32,11 +32,13 @@ export function UserCard({ user, onViewDetails }: UserCardProps) {
       <Card.Subtitle>{user.role}</Card.Subtitle>
       <Card.KeyValuePair label="Team:" value={user.team} />
       <Card.KeyValuePair label="Contact information:" value={user.contactInfo} valueType="email" />
-      <Card.Action>
-        <Button variant="small" onClick={() => onViewDetails?.()}>
-          View details
-        </Button>
-      </Card.Action>
+      {onViewDetails && (
+        <Card.Action>
+          <Button variant="small" onClick={onViewDetails}>
+            View details
+          </Button>
+        </Card.Action>
+      )}
     </Card.Root>
   );
 }

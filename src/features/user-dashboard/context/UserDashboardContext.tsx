@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, type ReactNode, useCallback, useContext, useMemo } from "react";
 
 import { LocalStorageKeys, useLocalStorage } from "../../../hooks/useLocalStorage";
 import type { UserDashboardState, UserPermission } from "../types";
@@ -47,13 +47,19 @@ const DEFAULT_STATE: UserDashboardState = {
 function useUserDashboardState() {
   const [state, setState] = useLocalStorage(LocalStorageKeys.USER_DASHBOARD_STATE, DEFAULT_STATE);
 
-  const setSearchQuery = (searchQuery: string) => {
-    setState((prevState) => ({ ...prevState, searchQuery }));
-  };
+  const setSearchQuery = useCallback(
+    (searchQuery: string) => {
+      setState((prevState) => ({ ...prevState, searchQuery }));
+    },
+    [setState],
+  );
 
-  const setSelectedPermissions = (selectedPermissions: UserPermission[]) => {
-    setState((prevState) => ({ ...prevState, selectedPermissions }));
-  };
+  const setSelectedPermissions = useCallback(
+    (selectedPermissions: UserPermission[]) => {
+      setState((prevState) => ({ ...prevState, selectedPermissions }));
+    },
+    [setState],
+  );
 
   /**
    * Toggle a permission filter on/off.
@@ -63,15 +69,18 @@ function useUserDashboardState() {
    *
    * @param permission - Permission to toggle
    */
-  const togglePermission = (permission: UserPermission) => {
-    setState((prevState) => {
-      const updatedPermissions = prevState.selectedPermissions.includes(permission)
-        ? prevState.selectedPermissions.filter((p) => p !== permission)
-        : [...prevState.selectedPermissions, permission];
+  const togglePermission = useCallback(
+    (permission: UserPermission) => {
+      setState((prevState) => {
+        const updatedPermissions = prevState.selectedPermissions.includes(permission)
+          ? prevState.selectedPermissions.filter((p) => p !== permission)
+          : [...prevState.selectedPermissions, permission];
 
-      return { ...prevState, selectedPermissions: updatedPermissions };
-    });
-  };
+        return { ...prevState, selectedPermissions: updatedPermissions };
+      });
+    },
+    [setState],
+  );
 
   return {
     searchQuery: state.searchQuery,
@@ -105,10 +114,27 @@ function useUserDashboardState() {
  * ```
  */
 export function UserDashboardProvider({ children }: { children: ReactNode }) {
-  const dashboardState = useUserDashboardState();
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedPermissions,
+    setSelectedPermissions,
+    togglePermission,
+  } = useUserDashboardState();
+
+  const contextValue = useMemo(
+    () => ({
+      searchQuery,
+      setSearchQuery,
+      selectedPermissions,
+      setSelectedPermissions,
+      togglePermission,
+    }),
+    [searchQuery, selectedPermissions, setSearchQuery, setSelectedPermissions, togglePermission],
+  );
 
   return (
-    <UserDashboardContext.Provider value={dashboardState}>{children}</UserDashboardContext.Provider>
+    <UserDashboardContext.Provider value={contextValue}>{children}</UserDashboardContext.Provider>
   );
 }
 

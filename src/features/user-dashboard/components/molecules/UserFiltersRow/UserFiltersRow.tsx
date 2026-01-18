@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { FiltersRow } from "../../../../../components/molecules/FiltersRow";
 import { useUserDashboardContext } from "../../../context";
 import type { UserPermission } from "../../../types";
@@ -35,26 +37,25 @@ const PERMISSION_OPTIONS: UserPermission[] = [
 export function UserFiltersRow({ className = "" }: UserFiltersRowProps) {
   const { selectedPermissions, togglePermission } = useUserDashboardContext();
 
-  const handleToggle = (permission: UserPermission) => {
-    togglePermission(permission);
-  };
-
-  const renderPermissionOption = (
-    permission: UserPermission,
-    isSelected: boolean,
-    onClick: () => void,
-  ) => {
-    return (
-      <UserPermissionBadgeToggle permission={permission} isActive={isSelected} onClick={onClick} />
-    );
-  };
+  const renderPermissionOption = useCallback(
+    (permission: UserPermission, isSelected: boolean, onClick: () => void) => {
+      return (
+        <UserPermissionBadgeToggle
+          permission={permission}
+          isActive={isSelected}
+          onClick={onClick}
+        />
+      );
+    },
+    [],
+  );
 
   return (
     <FiltersRow
       label="FILTER BY:"
       options={PERMISSION_OPTIONS}
       selected={selectedPermissions}
-      onToggle={handleToggle}
+      onToggle={togglePermission}
       renderOption={renderPermissionOption}
       className={className}
     />
