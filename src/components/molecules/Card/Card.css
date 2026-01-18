@@ -3,7 +3,7 @@
   flex-direction: column;
   background-color: var(--colour-surface-default);
   border-radius: var(--border-radius-lg);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
   border: var(--border-width-default) solid var(--colour-border-default);
   gap: var(--spacing-md);
 }
@@ -17,7 +17,7 @@
   margin: 0;
   font-family: var(--font-family-base);
   font-size: var(--typography-title-m-size);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--typography-title-m-line-height);
   color: var(--colour-text-primary);
 }
@@ -28,6 +28,7 @@
   font-size: var(--typography-text-l-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--typography-text-l-line-height);
+  letter-spacing: var(--letter-spacing-subtle);
   color: var(--colour-text-secondary);
   margin-top: calc(var(--spacing-sm) * -1);
 }
@@ -40,18 +41,18 @@
 
 .card__key {
   font-family: var(--font-family-base);
-  font-size: var(--typography-text-m-size);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--typography-text-m-line-height);
+  font-size: var(--typography-text-s-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--typography-text-s-line-height);
   color: var(--colour-text-secondary);
 }
 
 .card__value {
   font-family: var(--font-family-base);
-  font-size: var(--typography-text-m-size);
+  font-size: var(--typography-text-s-size);
   font-weight: var(--font-weight-medium);
-  line-height: var(--typography-text-m-line-height);
-  color: var(--colour-text-primary);
+  line-height: var(--typography-text-s-line-height);
+  color: var(--colour-text-secondary);
 }
 
 .card__value.external-link {
@@ -59,12 +60,12 @@
 }
 
 .card__value.external-link:hover {
-  color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
+  color: color-mix(in srgb, var(--colour-accent-primary) var(--interaction-darken-hover), black);
 }
 
 .card__action {
   display: flex;
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-sm);
 }
 
 .card__action .button {

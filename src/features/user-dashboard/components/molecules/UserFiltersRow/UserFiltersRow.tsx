@@ -6,8 +6,6 @@ import type { UserPermission } from "../../../types";
 import { UserPermissionValues } from "../../../types";
 import { UserPermissionBadgeToggle } from "../../atoms/UserPermissionBadgeToggle";
 
-import "./UserFiltersRow.css";
-
 /**
  * User-specific filter row component for permission filtering.
  *

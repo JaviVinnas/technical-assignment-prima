@@ -29,11 +29,19 @@
 }
 
 .button:hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-primary) var(--interaction-darken-hover),
+    black
+  );
 }
 
 .button:active:not(:disabled) {
-  background-color: color-mix(in srgb, var(--colour-accent-primary) 85%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-primary) var(--interaction-darken-active),
+    black
+  );
   transform: scale(var(--interaction-scale-active));
 }
 

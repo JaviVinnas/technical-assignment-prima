@@ -14,47 +14,87 @@
 }
 
 .badge-toggle.badge--accent-1:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-1) 95%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-1) var(--interaction-darken-hover),
+    black
+  );
 }
 
 .badge-toggle.badge--accent-2:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-2) 95%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-2) var(--interaction-darken-hover),
+    black
+  );
 }
 
 .badge-toggle.badge--accent-3:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-3) 95%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-3) var(--interaction-darken-hover),
+    black
+  );
 }
 
 .badge-toggle.badge--accent-4:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-4) 95%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-4) var(--interaction-darken-hover),
+    black
+  );
 }
 
 .badge-toggle.badge--default:hover {
-  background-color: color-mix(in srgb, var(--colour-surface-default) 92%, white);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-surface-default) var(--interaction-lighten-hover),
+    white
+  );
 }
 
 .badge-toggle.badge--accent-1:active {
-  background-color: color-mix(in srgb, var(--colour-accent-1) 85%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-1) var(--interaction-darken-active),
+    black
+  );
   transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-2:active {
-  background-color: color-mix(in srgb, var(--colour-accent-2) 85%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-2) var(--interaction-darken-active),
+    black
+  );
   transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-3:active {
-  background-color: color-mix(in srgb, var(--colour-accent-3) 85%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-3) var(--interaction-darken-active),
+    black
+  );
   transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-4:active {
-  background-color: color-mix(in srgb, var(--colour-accent-4) 85%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-accent-4) var(--interaction-darken-active),
+    black
+  );
   transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--default:active {
-  background-color: color-mix(in srgb, var(--colour-surface-default) 88%, white);
+  background-color: color-mix(
+    in srgb,
+    var(--colour-surface-default) var(--interaction-lighten-active),
+    white
+  );
   transform: scale(var(--interaction-scale-active));
 }
 

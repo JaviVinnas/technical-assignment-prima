@@ -40,9 +40,19 @@ export type LocalStorageKey = keyof typeof LocalStorageKeys;
  * the value types match the expected types for each key.
  *
  * Uses `useSyncExternalStore` to automatically sync with localStorage changes,
- * including cross-tab synchronization via storage events.
+ * including cross-tab synchronisation via storage events.
+ *
+ * Implementation notes:
+ * - Uses ref-based caching to ensure stable object references in getSnapshot,
+ *   preventing infinite re-render loops that would occur if getSnapshot
+ *   returned new object instances on every call
+ * - Serialises values for comparison to detect actual changes vs reference changes
+ * - Provides cross-tab synchronisation via storage events
+ * - Provides same-tab synchronisation via custom events
  *
  * @returns A configured useLocalStorage hook with type safety enforced
+ * @returns [0] Current value from localStorage (or default if not set)
+ * @returns [1] Setter function that accepts new value or updater function
  */
 function buildLocalStorageHook<TMap extends LocalStorageValueMap>() {
   return function useLocalStorage<K extends keyof TMap>(

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import { ErrorBoundary } from "./components/organisms/ErrorBoundary";
 import { UserDashboardPage } from "./features/user-dashboard";
 
 import "./index.css";
@@ -15,6 +16,8 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <UserDashboardPage />
+    <ErrorBoundary>
+      <UserDashboardPage />
+    </ErrorBoundary>
   </React.StrictMode>,
 );

@@ -24,7 +24,8 @@ export function EmptyState({ message, className = "", ...rest }: EmptyStateProps
   const emptyStateClassName = `empty-state ${className}`.trim();
 
   return (
-    <section className={emptyStateClassName} {...rest}>
+    // biome-ignore lint/a11y/useSemanticElements: role="status" is correct for live region announcements
+    <section className={emptyStateClassName} role="status" aria-live="polite" {...rest}>
       <p className="empty-state__message">{message}</p>
     </section>
   );

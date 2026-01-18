@@ -8,9 +8,9 @@
 .input__label {
   color: var(--colour-text-primary);
   font-family: var(--font-family-base);
-  font-size: var(--typography-text-m-size);
-  font-weight: var(--typography-text-m-weight);
-  line-height: var(--typography-text-m-line-height);
+  font-size: var(--typography-text-l-size);
+  font-weight: var(--typography-text-l-weight);
+  line-height: var(--typography-text-l-line-height);
   text-transform: uppercase;
 }
 
@@ -44,7 +44,11 @@
 .input:disabled {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
-  background-color: color-mix(in srgb, var(--colour-background) 95%, var(--colour-border-default));
+  background-color: color-mix(
+    in srgb,
+    var(--colour-background) var(--interaction-lighten-hover),
+    var(--colour-border-default)
+  );
 }
 
 .input:disabled::placeholder {

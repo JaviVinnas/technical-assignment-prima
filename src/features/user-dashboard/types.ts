@@ -48,5 +48,10 @@ export interface User {
   name: string;
   permission: UserPermission;
   team: string;
-  contactInfo: string; // email format
+  /**
+   * Contact information in email format.
+   * Expected format: email address string (e.g., "user@example.com")
+   * Note: No runtime validation enforced - consumers should validate if needed
+   */
+  contactInfo: string;
 }

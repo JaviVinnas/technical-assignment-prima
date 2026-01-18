@@ -2,17 +2,32 @@
   container-type: inline-size;
   container-name: grid;
   display: grid;
-  grid-template-columns: repeat(
-      auto-fill,
-      minmax(var(--card-grid-min-column-width, var(--grid-min-column-width)), 1fr)
-    );
-  gap: var(--card-grid-gap, var(--spacing-lg));
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--card-width-base), 100%), 1fr));
+  gap: var(--card-grid-gap, var(--spacing-xs));
   width: 100%;
   padding-top: var(--spacing-xl);
   padding-bottom: var(--spacing-xl);
 }
 
-@container grid (max-width: 600px) {
+@container grid (min-width: 960px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width-base), 1fr));
+  }
+}
+
+@container grid (min-width: 720px) and (max-width: 959px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width-medium), 1fr));
+  }
+}
+
+@container grid (min-width: 480px) and (max-width: 719px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width-small), 1fr));
+  }
+}
+
+@container grid (max-width: 479px) {
   .card-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);

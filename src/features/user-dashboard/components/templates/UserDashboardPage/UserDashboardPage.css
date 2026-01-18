@@ -17,7 +17,7 @@
   line-height: var(--typography-title-xl-line-height);
   width: 100%;
   margin: 0;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
   text-align: center;
 }
 
@@ -32,7 +32,7 @@
 .user-dashboard__sticky-controls {
   position: sticky;
   top: 0;
-  z-index: 13;
+  z-index: var(--z-index-sticky);
   background-color: var(--colour-background);
   padding-top: var(--spacing-lg);
   padding-bottom: 0;
@@ -50,7 +50,7 @@
   width: 100%;
   max-width: var(--layout-max-width-content);
   margin: 0 auto;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: calc(var(--spacing-lg) + var(--spacing-md));
 }
 
 .user-dashboard__search-section > * {
@@ -60,9 +60,9 @@
 .user-dashboard__label {
   color: var(--colour-text-secondary);
   font-family: var(--font-family-base);
-  font-size: var(--typography-text-m-size);
-  font-weight: var(--typography-text-m-weight);
-  line-height: var(--typography-text-m-line-height);
+  font-size: var(--typography-text-l-size);
+  font-weight: var(--typography-text-l-weight);
+  line-height: var(--typography-text-l-line-height);
   text-transform: uppercase;
   text-align: left;
   margin: 0;
@@ -75,7 +75,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-sm);
 }
 
 .user-dashboard__filters-section > * {

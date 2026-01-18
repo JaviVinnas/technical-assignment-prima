@@ -5,8 +5,6 @@ import { showNotImplementedAlert } from "../../../../../utils";
 import type { User } from "../../../types";
 import { UserPermissionBadge } from "../../atoms/UserPermissionBadge";
 
-import "./UserCard.css";
-
 /**
  * UserCard component for displaying user information in a card layout.
  *

@@ -1,8 +1,6 @@
 import { BadgeToggle } from "../../../../../components/atoms/BadgeToggle";
 import type { UserPermission } from "../../../types";
 
-import "./UserPermissionBadgeToggle.css";
-
 /**
  * BadgeToggle component for displaying and toggling user permission levels.
  *

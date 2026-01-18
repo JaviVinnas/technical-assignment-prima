@@ -1,0 +1,18 @@
+.button-skeleton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--spacing-lg);
+  background-color: var(--colour-skeleton-background);
+  width: 100%;
+}
+
+.button-skeleton--big {
+  height: var(--button-height-big);
+  border-radius: var(--border-radius-lg);
+}
+
+.button-skeleton--small {
+  height: var(--button-height-small);
+  border-radius: var(--border-radius-md);
+}

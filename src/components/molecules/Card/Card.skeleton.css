@@ -1,0 +1,54 @@
+.card-skeleton {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--colour-surface-default);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  border: var(--border-width-default) solid var(--colour-border-default);
+  gap: var(--spacing-md);
+}
+
+.card-skeleton__badge-slot {
+  display: flex;
+  align-self: flex-start;
+}
+
+.card-skeleton__title {
+  height: calc(var(--typography-title-m-size) * var(--typography-title-m-line-height));
+  background-color: var(--colour-skeleton-background);
+  border-radius: var(--border-radius-sm);
+  width: 70%;
+}
+
+.card-skeleton__subtitle {
+  height: calc(var(--typography-text-l-size) * var(--typography-text-l-line-height));
+  background-color: var(--colour-skeleton-background);
+  border-radius: var(--border-radius-sm);
+  width: 50%;
+  margin-top: calc(var(--spacing-sm) * -1);
+}
+
+.card-skeleton__key-value-pair {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-sm) / 2);
+}
+
+.card-skeleton__key {
+  height: calc(var(--typography-text-s-size) * var(--typography-text-s-line-height));
+  background-color: var(--colour-skeleton-background);
+  border-radius: var(--border-radius-sm);
+  width: 40%;
+}
+
+.card-skeleton__value {
+  height: calc(var(--typography-text-s-size) * var(--typography-text-s-line-height));
+  background-color: var(--colour-skeleton-background);
+  border-radius: var(--border-radius-sm);
+  width: 60%;
+}
+
+.card-skeleton__action {
+  display: flex;
+  margin-top: var(--spacing-sm);
+}

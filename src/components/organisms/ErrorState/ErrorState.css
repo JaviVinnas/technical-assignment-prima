@@ -1,13 +1,14 @@
-.empty-state {
+.error-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-xl);
+  gap: var(--spacing-md);
   width: 100%;
 }
 
-.empty-state__message {
+.error-state__message {
   color: var(--colour-text-secondary);
   font-family: var(--font-family-base);
   font-size: var(--typography-text-l-size);
@@ -15,4 +16,11 @@
   line-height: var(--typography-text-l-line-height);
   text-align: center;
   margin: 0;
+}
+
+.error-state__action {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--layout-max-width-content);
 }

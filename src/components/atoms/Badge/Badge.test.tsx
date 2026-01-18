@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
 
 import { Badge } from "./Badge";
 
@@ -137,6 +136,35 @@ describe("Badge", () => {
       render(<Badge variant="default">Default</Badge>);
       const badge = screen.getByText("Default");
       expect(badge).toHaveClass("badge--default");
+    });
+  });
+
+  describe("Edge Cases", () => {
+    it("handles empty string children", () => {
+      const { container } = render(<Badge variant="accent-1">{""}</Badge>);
+      const badge = container.querySelector(".badge");
+      expect(badge).toBeInTheDocument();
+      expect(badge).toHaveClass("badge", "badge--accent-1");
+    });
+
+    it("handles very long text content", () => {
+      const longText = "A".repeat(200);
+      render(<Badge variant="accent-1">{longText}</Badge>);
+      const badge = screen.getByText(longText);
+      expect(badge).toBeInTheDocument();
+      // Visual overflow is handled by CSS, no JS errors expected
+    });
+
+    it("handles special characters and unicode", () => {
+      render(<Badge variant="accent-1">Test™ • 日本語 • ❤️</Badge>);
+      const badge = screen.getByText(/Test™ • 日本語 • ❤️/);
+      expect(badge).toBeInTheDocument();
+    });
+
+    it("handles numbers as children", () => {
+      render(<Badge variant="accent-1">{42}</Badge>);
+      const badge = screen.getByText("42");
+      expect(badge).toBeInTheDocument();
     });
   });
 });

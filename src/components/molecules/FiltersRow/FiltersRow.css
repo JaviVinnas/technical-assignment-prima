@@ -9,9 +9,10 @@
 .filters-row__label {
   color: var(--colour-text-secondary);
   font-family: var(--font-family-base);
-  font-size: var(--typography-text-m-size);
-  font-weight: var(--typography-text-m-weight);
-  line-height: var(--typography-text-m-line-height);
+  font-size: var(--typography-text-xs-size);
+  font-weight: var(--typography-text-xs-weight);
+  line-height: var(--typography-text-xs-line-height);
+  letter-spacing: var(--letter-spacing-subtle);
   text-transform: uppercase;
   margin: 0;
 }

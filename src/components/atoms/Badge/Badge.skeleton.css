@@ -1,0 +1,14 @@
+.badge-skeleton {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--colour-skeleton-background);
+  height: calc(
+    var(--typography-text-s-size) *
+    var(--typography-badge-line-height) +
+    var(--spacing-sm) *
+    2
+  );
+  width: 4.5rem;
+}

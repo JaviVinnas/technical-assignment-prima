@@ -23,7 +23,11 @@
   /* Colour Tokens - Surface */
   --colour-surface-default: #ffffff; /* Deactivated state: text-primary on white */
 
+  /* Colour Tokens - Skeleton */
+  --colour-skeleton-background: #f0f0f0;
+
   /* Spacing Tokens */
+  --spacing-xs: 0.75rem; /* 12px */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 1rem; /* 16px */
   --spacing-md-plus: 1.25rem; /* 20px - between md and lg */
@@ -41,24 +45,17 @@
   /* Grid Tokens */
   --grid-min-column-width: 17.5rem; /* 280px */
 
+  /* Card Width Tokens */
+  --card-width-base: 240px;
+  --card-width-medium: 220px;
+  --card-width-small: 200px;
+
   /* Breakpoint Tokens */
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
 
-  /* Shadow Tokens */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-
   /* Z-Index Tokens */
-  --z-index-dropdown: 1000;
   --z-index-sticky: 1020;
-  --z-index-fixed: 1030;
-  --z-index-modal-backdrop: 1040;
-  --z-index-modal: 1050;
-  --z-index-popover: 1060;
-  --z-index-tooltip: 1070;
 
   /* Focus Outline Tokens */
   --outline-width-focus: 2px;
@@ -81,6 +78,10 @@
 
   /* Interaction Tokens */
   --interaction-scale-active: 0.97; /* Scale applied when interactive elements are pressed */
+  --interaction-darken-hover: 90%; /* Percentage of original colour on hover (dark colours) */
+  --interaction-darken-active: 85%; /* Percentage of original colour on active (dark colours) */
+  --interaction-lighten-hover: 92%; /* Percentage of original colour on hover (light surfaces) */
+  --interaction-lighten-active: 88%; /* Percentage of original colour on active (light surfaces) */
 
   /* Button Height Tokens */
   --button-height-big: 4.875rem; /* 78px */
@@ -105,15 +106,15 @@
   --typography-title-m-line-height: 1.3; /* 130% */
   --typography-title-m-weight: var(--font-weight-medium);
 
-  /* Typography Scale - Text L */
-  --typography-text-l-size: 1rem; /* 16px */
-  --typography-text-l-line-height: 1; /* 100% */
-  --typography-text-l-weight: var(--font-weight-regular);
+  /* Typography Scale - Text XS (for micro labels) */
+  --typography-text-xs-size: 0.8125rem; /* 13px */
+  --typography-text-xs-line-height: 1.7; /* 170% */
+  --typography-text-xs-weight: var(--font-weight-medium);
 
-  /* Typography Scale - Text M */
-  --typography-text-m-size: 0.875rem; /* 14px */
-  --typography-text-m-line-height: 1.7; /* 170% */
-  --typography-text-m-weight: var(--font-weight-regular);
+  /* Typography Scale - Text L */
+  --typography-text-l-size: 0.875rem; /* 14px */
+  --typography-text-l-line-height: 1.7; /* 170% */
+  --typography-text-l-weight: var(--font-weight-regular);
 
   /* Typography Scale - Text S */
   --typography-text-s-size: 0.75rem; /* 12px */
@@ -128,6 +129,7 @@
 
   /* Typography - Letter Spacing Tokens */
   --letter-spacing-uppercase: 0.1em;
+  --letter-spacing-subtle: 0.02em; /* 2% */
 
   /* Opacity Tokens */
   --opacity-full: 1;
