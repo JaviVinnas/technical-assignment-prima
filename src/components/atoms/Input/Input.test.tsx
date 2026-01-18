@@ -18,7 +18,7 @@ describe("Input", () => {
       const input = screen.getByLabelText(/email address/i);
       expect(label).toBeInTheDocument();
       expect(input).toBeInTheDocument();
-      expect(label).toHaveClass("input__label");
+      expect(label).toHaveClass("label");
       expect(label).toHaveAttribute("for", input.id);
     });
 
@@ -210,7 +210,7 @@ describe("Input", () => {
     it("renders label with correct CSS class when provided", () => {
       render(<Input label="Test Label" />);
       const label = screen.getByText("Test Label");
-      expect(label).toHaveClass("input__label");
+      expect(label).toHaveClass("label");
     });
 
     it("wraps input in wrapper div", () => {
