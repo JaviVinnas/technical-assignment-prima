@@ -1,11 +1,8 @@
 .badge-toggle {
   cursor: pointer;
   margin: 0;
-  box-sizing: border-box;
   appearance: none;
   -webkit-appearance: none;
-  min-height: 0;
-  height: auto;
   padding: var(--spacing-sm) var(--spacing-md);
   vertical-align: baseline;
   transition:
@@ -13,78 +10,61 @@
     transform var(--transition-fast, 150ms) var(--transition-timing-interaction);
 }
 
-.badge-toggle.badge--accent-1:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-1) var(--interaction-darken-hover),
-    black
-  );
+.badge-toggle.badge--accent-1 {
+  --badge-colour: var(--colour-accent-1);
 }
 
-.badge-toggle.badge--accent-2:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-2) var(--interaction-darken-hover),
-    black
-  );
+.badge-toggle.badge--accent-2 {
+  --badge-colour: var(--colour-accent-2);
 }
 
-.badge-toggle.badge--accent-3:hover {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-3) var(--interaction-darken-hover),
-    black
-  );
+.badge-toggle.badge--accent-3 {
+  --badge-colour: var(--colour-accent-3);
 }
 
+.badge-toggle.badge--accent-4 {
+  --badge-colour: var(--colour-accent-4);
+}
+
+.badge-toggle.badge--default {
+  --badge-colour: var(--colour-surface-default);
+  --badge-interaction-mix-colour: white;
+}
+
+.badge-toggle.badge--accent-1,
+.badge-toggle.badge--accent-2,
+.badge-toggle.badge--accent-3,
+.badge-toggle.badge--accent-4 {
+  --badge-interaction-mix-colour: black;
+}
+
+.badge-toggle.badge--accent-1:hover,
+.badge-toggle.badge--accent-2:hover,
+.badge-toggle.badge--accent-3:hover,
 .badge-toggle.badge--accent-4:hover {
   background-color: color-mix(
     in srgb,
-    var(--colour-accent-4) var(--interaction-darken-hover),
-    black
+    var(--badge-colour) var(--interaction-darken-hover),
+    var(--badge-interaction-mix-colour)
   );
 }
 
 .badge-toggle.badge--default:hover {
   background-color: color-mix(
     in srgb,
-    var(--colour-surface-default) var(--interaction-lighten-hover),
-    white
+    var(--badge-colour) var(--interaction-lighten-hover),
+    var(--badge-interaction-mix-colour)
   );
 }
 
-.badge-toggle.badge--accent-1:active {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-1) var(--interaction-darken-active),
-    black
-  );
-  transform: scale(var(--interaction-scale-active));
-}
-
-.badge-toggle.badge--accent-2:active {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-2) var(--interaction-darken-active),
-    black
-  );
-  transform: scale(var(--interaction-scale-active));
-}
-
-.badge-toggle.badge--accent-3:active {
-  background-color: color-mix(
-    in srgb,
-    var(--colour-accent-3) var(--interaction-darken-active),
-    black
-  );
-  transform: scale(var(--interaction-scale-active));
-}
-
+.badge-toggle.badge--accent-1:active,
+.badge-toggle.badge--accent-2:active,
+.badge-toggle.badge--accent-3:active,
 .badge-toggle.badge--accent-4:active {
   background-color: color-mix(
     in srgb,
-    var(--colour-accent-4) var(--interaction-darken-active),
-    black
+    var(--badge-colour) var(--interaction-darken-active),
+    var(--badge-interaction-mix-colour)
   );
   transform: scale(var(--interaction-scale-active));
 }
@@ -92,34 +72,18 @@
 .badge-toggle.badge--default:active {
   background-color: color-mix(
     in srgb,
-    var(--colour-surface-default) var(--interaction-lighten-active),
-    white
+    var(--badge-colour) var(--interaction-lighten-active),
+    var(--badge-interaction-mix-colour)
   );
   transform: scale(var(--interaction-scale-active));
 }
 
-.badge-toggle.badge--accent-1:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-1);
-  outline-offset: var(--outline-offset-focus);
-}
-
-.badge-toggle.badge--accent-2:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-2);
-  outline-offset: var(--outline-offset-focus);
-}
-
-.badge-toggle.badge--accent-3:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-3);
-  outline-offset: var(--outline-offset-focus);
-}
-
-.badge-toggle.badge--accent-4:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-4);
-  outline-offset: var(--outline-offset-focus);
-}
-
+.badge-toggle.badge--accent-1:focus-visible,
+.badge-toggle.badge--accent-2:focus-visible,
+.badge-toggle.badge--accent-3:focus-visible,
+.badge-toggle.badge--accent-4:focus-visible,
 .badge-toggle.badge--default:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-surface-default);
+  outline: var(--outline-width-focus) solid var(--badge-colour);
   outline-offset: var(--outline-offset-focus);
 }
 

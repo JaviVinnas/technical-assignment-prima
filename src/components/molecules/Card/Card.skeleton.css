@@ -17,6 +17,7 @@
   height: calc(var(--typography-title-m-size) * var(--typography-title-m-line-height));
   background-color: var(--colour-skeleton-background);
   border-radius: var(--border-radius-sm);
+  /* Width simulates typical card title length (70% of container) */
   width: 70%;
 }
 
@@ -24,6 +25,7 @@
   height: calc(var(--typography-text-l-size) * var(--typography-text-l-line-height));
   background-color: var(--colour-skeleton-background);
   border-radius: var(--border-radius-sm);
+  /* Width simulates typical subtitle length (50% of container) */
   width: 50%;
   margin-top: calc(var(--spacing-sm) * -1);
 }
@@ -38,6 +40,7 @@
   height: calc(var(--typography-text-s-size) * var(--typography-text-s-line-height));
   background-color: var(--colour-skeleton-background);
   border-radius: var(--border-radius-sm);
+  /* Width simulates typical key label length (40% of container) */
   width: 40%;
 }
 
@@ -45,6 +48,7 @@
   height: calc(var(--typography-text-s-size) * var(--typography-text-s-line-height));
   background-color: var(--colour-skeleton-background);
   border-radius: var(--border-radius-sm);
+  /* Width simulates typical value length (60% of container) */
   width: 60%;
 }
 

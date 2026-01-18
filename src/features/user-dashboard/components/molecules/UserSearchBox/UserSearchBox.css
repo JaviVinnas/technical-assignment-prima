@@ -6,14 +6,8 @@
 }
 
 .user-search-box__label {
-  color: var(--colour-text-secondary);
-  font-family: var(--font-family-base);
-  font-size: var(--typography-text-l-size);
-  font-weight: var(--typography-text-l-weight);
-  line-height: var(--typography-text-l-line-height);
-  text-transform: uppercase;
   text-align: left;
-  margin: 0;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
+  padding-bottom: var(--spacing-md);
   width: 100%;
 }

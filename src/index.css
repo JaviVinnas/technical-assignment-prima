@@ -1,3 +1,31 @@
+/**
+ * Minimal CSS reset for consistency across browsers.
+ * Provides defensive defaults without being overly opinionated.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
 :root {
   /* Colour Tokens - Background */
   --colour-background: #f5f5f5;
@@ -30,13 +58,14 @@
   --spacing-xs: 0.75rem; /* 12px */
   --spacing-sm: 0.5rem; /* 8px */
   --spacing-md: 1rem; /* 16px */
-  --spacing-md-plus: 1.25rem; /* 20px - between md and lg */
+  --spacing-lg-sm: 1.25rem; /* 20px - between md and lg */
   --spacing-lg: 1.875rem; /* 30px */
   --spacing-xl: 2rem; /* 32px */
   --spacing-checkmark-offset: -0.625rem; /* -10px */
 
   /* Layout Spacing Tokens */
-  --spacing-dashboard-top: 286px; /* Specific layout spacing for dashboard */
+  /* Space from top of viewport to main content start (accommodates fixed header/hero space) */
+  --spacing-dashboard-top: 286px;
 
   /* Layout Tokens */
   --layout-max-width-content: 600px;
@@ -45,14 +74,20 @@
   /* Grid Tokens */
   --grid-min-column-width: 17.5rem; /* 280px */
 
-  /* Card Width Tokens */
-  --card-width-base: 240px;
-  --card-width-medium: 220px;
-  --card-width-small: 200px;
+  /* Card Width Tokens for Responsive Grid Breakpoints */
+  --card-width-lg: 240px; /* Large viewport card width */
+  --card-width-md: 220px; /* Medium viewport card width */
+  --card-width-sm: 200px; /* Small viewport card width */
 
   /* Breakpoint Tokens */
+  --breakpoint-sm: 480px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
+
+  /* Container Query Breakpoint Tokens */
+  --container-breakpoint-sm: 480px;
+  --container-breakpoint-md: 720px;
+  --container-breakpoint-lg: 960px;
 
   /* Z-Index Tokens */
   --z-index-sticky: 1020;
@@ -147,12 +182,32 @@
   --colour-selection-text-on-dark: var(--colour-text-primary);
 }
 
+/**
+ * Global label utility class for form labels and section labels.
+ * Use this class for consistent label styling across the application.
+ */
+.label {
+  color: var(--colour-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--typography-text-l-size);
+  font-weight: var(--typography-text-l-weight);
+  line-height: var(--typography-text-l-line-height);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.label--secondary {
+  color: var(--colour-text-secondary);
+}
+
 body {
   background-color: var(--colour-background);
   color: var(--colour-text-primary);
   font-family: var(--font-family-base);
   margin: 0;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {

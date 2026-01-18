@@ -32,7 +32,7 @@ export function Input({ label, className = "", id, ...rest }: InputProps) {
   return (
     <div className="input-wrapper">
       {label && (
-        <label htmlFor={inputId} className="input__label">
+        <label htmlFor={inputId} className="label">
           {label}
         </label>
       )}

@@ -45,7 +45,7 @@ export function UserSearchBox({ id, placeholder, className = "", ...rest }: User
 
   return (
     <section className={userSearchBoxClassName}>
-      <label htmlFor={id} className="user-search-box__label">
+      <label htmlFor={id} className="label label--secondary user-search-box__label">
         WHAT ARE YOU LOOKING FOR?
       </label>
       <SearchBox

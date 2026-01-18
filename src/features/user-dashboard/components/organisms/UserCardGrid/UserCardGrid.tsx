@@ -38,6 +38,10 @@ export function UserCardGrid({ className = "" }: UserCardGridProps) {
   const { searchQuery, selectedPermissions } = useUserDashboardContext();
   const [refetchTrigger, setRefetchTrigger] = useState(0);
 
+  const handleRetry = () => {
+    setRefetchTrigger((prev) => prev + 1);
+  };
+
   const filterFn = useCallback(
     (users: User[]) => filterUsers(users, searchQuery, selectedPermissions),
     [searchQuery, selectedPermissions],
@@ -50,10 +54,6 @@ export function UserCardGrid({ className = "" }: UserCardGridProps) {
 
   const userCardGridClassName = `user-card-grid ${className}`.trim();
 
-  const handleRetry = () => {
-    setRefetchTrigger((prev) => prev + 1);
-  };
-
   if (asyncResult.isLoading) {
     return <UserCardGridSkeleton count={6} className={className} />;
   }
@@ -61,7 +61,7 @@ export function UserCardGrid({ className = "" }: UserCardGridProps) {
   if (asyncResult.isError) {
     return (
       <section className={userCardGridClassName}>
-        <ErrorState message="Failed to load users. Please try again." onRetry={handleRetry} />
+        <ErrorState message="Failed to load users." onRetry={handleRetry} />
       </section>
     );
   }

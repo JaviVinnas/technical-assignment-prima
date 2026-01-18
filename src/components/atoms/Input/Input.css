@@ -5,15 +5,6 @@
   width: 100%;
 }
 
-.input__label {
-  color: var(--colour-text-primary);
-  font-family: var(--font-family-base);
-  font-size: var(--typography-text-l-size);
-  font-weight: var(--typography-text-l-weight);
-  line-height: var(--typography-text-l-line-height);
-  text-transform: uppercase;
-}
-
 .input {
   width: 100%;
   padding-inline: var(--spacing-md);
