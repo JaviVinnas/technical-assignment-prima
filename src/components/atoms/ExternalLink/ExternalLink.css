@@ -1,0 +1,23 @@
+.external-link {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: var(--colour-accent-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color var(--transition-base, 200ms) ease-in-out;
+}
+
+.external-link:hover {
+  color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
+}
+
+.external-link:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-primary);
+  outline-offset: var(--outline-offset-focus);
+}
+
+.external-link:focus:not(:focus-visible) {
+  outline: none;
+}

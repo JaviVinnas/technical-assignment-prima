@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
+import { ExternalLink } from "../../atoms/ExternalLink";
+
 import "./Card.css";
 
 /**
@@ -14,7 +16,9 @@ import "./Card.css";
  * - Card.BadgeSlot: Container slot for Badge component (positioned top-left)
  * - Card.Title: Primary heading with bold typography
  * - Card.Subtitle: Secondary heading with regular typography
- * - Card.KeyValuePair: Key-value pair with support for links (e.g., email)
+ * - Card.KeyValuePair.Root: Container for key-value pair
+ * - Card.KeyValuePair.Key: Label/key portion of the pair
+ * - Card.KeyValuePair.Value: Value portion with support for links (type="email")
  * - Card.Action: Container for action button (full-width)
  *
  * @example
@@ -25,8 +29,14 @@ import "./Card.css";
  *   </Card.BadgeSlot>
  *   <Card.Title>John Doe</Card.Title>
  *   <Card.Subtitle>Software Engineer</Card.Subtitle>
- *   <Card.KeyValuePair label="Team:" value="Engineering" />
- *   <Card.KeyValuePair label="Contact:" value="john@example.com" valueType="email" />
+ *   <Card.KeyValuePair.Root>
+ *     <Card.KeyValuePair.Key>Team:</Card.KeyValuePair.Key>
+ *     <Card.KeyValuePair.Value>Engineering</Card.KeyValuePair.Value>
+ *   </Card.KeyValuePair.Root>
+ *   <Card.KeyValuePair.Root>
+ *     <Card.KeyValuePair.Key>Contact:</Card.KeyValuePair.Key>
+ *     <Card.KeyValuePair.Value type="email">john@example.com</Card.KeyValuePair.Value>
+ *   </Card.KeyValuePair.Root>
  *   <Card.Action>
  *     <Button variant="big">View details</Button>
  *   </Card.Action>
@@ -90,40 +100,68 @@ function CardSubtitle({ children, className = "", ...rest }: CardSubtitleProps) 
   );
 }
 
-export interface CardKeyValuePairProps {
-  label: string;
-  value: string;
-  valueType?: "text" | "email";
-  className?: string;
+export interface CardKeyValuePairRootProps extends HTMLAttributes<HTMLDivElement> {
+  children: ReactNode;
 }
 
-function CardKeyValuePair({
-  label,
-  value,
-  valueType = "text",
-  className = "",
-}: CardKeyValuePairProps) {
+function CardKeyValuePairRoot({ children, className = "", ...rest }: CardKeyValuePairRootProps) {
   const keyValuePairClassName = `card__key-value-pair ${className}`.trim();
 
-  const renderValue = () => {
-    if (valueType === "email") {
-      return (
-        <a href={`mailto:${value}`} className="card__value card__value--link">
-          {value}
-        </a>
-      );
-    }
-
-    return <span className="card__value">{value}</span>;
-  };
-
   return (
-    <div className={keyValuePairClassName}>
-      <span className="card__key">{label}</span>
-      {renderValue()}
+    <div className={keyValuePairClassName} {...rest}>
+      {children}
     </div>
   );
 }
+
+export interface CardKeyValuePairKeyProps extends HTMLAttributes<HTMLSpanElement> {
+  children: ReactNode;
+}
+
+function CardKeyValuePairKey({ children, className = "", ...rest }: CardKeyValuePairKeyProps) {
+  const keyClassName = `card__key ${className}`.trim();
+
+  return (
+    <span className={keyClassName} {...rest}>
+      {children}
+    </span>
+  );
+}
+
+export interface CardKeyValuePairValueProps extends HTMLAttributes<HTMLElement> {
+  children: ReactNode;
+  type?: "text" | "email";
+}
+
+function CardKeyValuePairValue({
+  children,
+  type = "text",
+  className = "",
+  ...rest
+}: CardKeyValuePairValueProps) {
+  const valueClassName = `card__value ${className}`.trim();
+
+  if (type === "email") {
+    const emailValue = typeof children === "string" ? children : "";
+    return (
+      <ExternalLink href={emailValue} variant="email" className={valueClassName} {...rest}>
+        {children}
+      </ExternalLink>
+    );
+  }
+
+  return (
+    <span className={valueClassName} {...rest}>
+      {children}
+    </span>
+  );
+}
+
+const CardKeyValuePair = Object.assign(CardKeyValuePairRoot, {
+  Root: CardKeyValuePairRoot,
+  Key: CardKeyValuePairKey,
+  Value: CardKeyValuePairValue,
+});
 
 export interface CardActionProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;

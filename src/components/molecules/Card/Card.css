@@ -54,24 +54,12 @@
   color: var(--colour-text-primary);
 }
 
-.card__value--link {
+.card__value.external-link {
   color: var(--colour-accent-primary);
-  text-decoration: underline;
-  cursor: pointer;
-  transition: color var(--transition-base, 200ms) ease-in-out;
 }
 
-.card__value--link:hover {
+.card__value.external-link:hover {
   color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
-}
-
-.card__value--link:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-primary);
-  outline-offset: var(--outline-offset-focus);
-}
-
-.card__value--link:focus:not(:focus-visible) {
-  outline: none;
 }
 
 .card__action {

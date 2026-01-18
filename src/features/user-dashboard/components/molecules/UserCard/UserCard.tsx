@@ -1,5 +1,6 @@
 import { Button } from "../../../../../components/atoms/Button";
 import { Card } from "../../../../../components/molecules/Card";
+import { showNotImplementedAlert } from "../../../../../utils";
 
 import type { User } from "../../../types";
 import { UserPermissionBadge } from "../../atoms/UserPermissionBadge";
@@ -15,14 +16,12 @@ import "./UserCard.css";
  *
  * @param props - UserCard configuration
  * @param props.user - User data to display (required)
- * @param props.onViewDetails - Callback function called when "View details" button is clicked (optional)
  */
 export interface UserCardProps {
   user: User;
-  onViewDetails?: () => void;
 }
 
-export function UserCard({ user, onViewDetails }: UserCardProps) {
+export function UserCard({ user }: UserCardProps) {
   return (
     <Card.Root>
       <Card.BadgeSlot>
@@ -30,15 +29,19 @@ export function UserCard({ user, onViewDetails }: UserCardProps) {
       </Card.BadgeSlot>
       <Card.Title>{user.name}</Card.Title>
       <Card.Subtitle>{user.role}</Card.Subtitle>
-      <Card.KeyValuePair label="Team:" value={user.team} />
-      <Card.KeyValuePair label="Contact information:" value={user.contactInfo} valueType="email" />
-      {onViewDetails && (
-        <Card.Action>
-          <Button variant="small" onClick={onViewDetails}>
-            View details
-          </Button>
-        </Card.Action>
-      )}
+      <Card.KeyValuePair.Root>
+        <Card.KeyValuePair.Key>Team:</Card.KeyValuePair.Key>
+        <Card.KeyValuePair.Value>{user.team}</Card.KeyValuePair.Value>
+      </Card.KeyValuePair.Root>
+      <Card.KeyValuePair.Root>
+        <Card.KeyValuePair.Key>Contact information:</Card.KeyValuePair.Key>
+        <Card.KeyValuePair.Value type="email">{user.contactInfo}</Card.KeyValuePair.Value>
+      </Card.KeyValuePair.Root>
+      <Card.Action>
+        <Button variant="small" onClick={showNotImplementedAlert}>
+          View details
+        </Button>
+      </Card.Action>
     </Card.Root>
   );
 }

@@ -1,7 +1,9 @@
 export type {
   CardActionProps,
   CardBadgeSlotProps,
-  CardKeyValuePairProps,
+  CardKeyValuePairKeyProps,
+  CardKeyValuePairRootProps,
+  CardKeyValuePairValueProps,
   CardRootProps,
   CardSubtitleProps,
   CardTitleProps,

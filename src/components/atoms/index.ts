@@ -4,6 +4,8 @@ export type { BadgeToggleProps } from "./BadgeToggle";
 export { BadgeToggle } from "./BadgeToggle";
 export type { ButtonProps } from "./Button";
 export { Button } from "./Button";
+export type { ExternalLinkProps } from "./ExternalLink";
+export { ExternalLink } from "./ExternalLink";
 export type { HorizontalSeparatorProps } from "./HorizontalSeparator";
 export { HorizontalSeparator } from "./HorizontalSeparator";
 export type { InputProps } from "./Input";

@@ -129,6 +129,16 @@
   --opacity-full: 1;
   --opacity-disabled: 0.6;
   --opacity-disabled-placeholder: 0.5; /* 50% opacity for disabled placeholder text */
+
+  /* Selection/Highlight Tokens */
+  --colour-selection-background: var(--colour-accent-primary);
+  --colour-selection-text: var(--colour-text-on-dark);
+  --colour-selection-background-on-dark: color-mix(
+    in srgb,
+    var(--colour-accent-primary) 80%,
+    white
+  );
+  --colour-selection-text-on-dark: var(--colour-text-primary);
 }
 
 body {
@@ -137,4 +147,33 @@ body {
   font-family: var(--font-family-base);
   margin: 0;
   min-height: 100vh;
+}
+
+::selection {
+  background-color: var(--colour-selection-background);
+  color: var(--colour-selection-text);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--colour-selection-background);
+  color: var(--colour-selection-text);
+  text-shadow: none;
+}
+
+/* Selection on dark backgrounds (badges, dark surfaces) */
+.badge--accent-1 ::selection,
+.badge--accent-2 ::selection,
+.badge--accent-3 ::selection,
+.badge--accent-4 ::selection {
+  background-color: var(--colour-selection-background-on-dark);
+  color: var(--colour-selection-text-on-dark);
+}
+
+.badge--accent-1 ::-moz-selection,
+.badge--accent-2 ::-moz-selection,
+.badge--accent-3 ::-moz-selection,
+.badge--accent-4 ::-moz-selection {
+  background-color: var(--colour-selection-background-on-dark);
+  color: var(--colour-selection-text-on-dark);
 }
