@@ -14,27 +14,27 @@
   text-transform: uppercase;
 }
 
-.badge--admin {
-  background-color: var(--colour-accent-blue);
+.badge--accent-1 {
+  background-color: var(--colour-accent-1);
   color: var(--colour-text-on-dark);
 }
 
-.badge--editor {
-  background-color: var(--colour-accent-teal);
+.badge--accent-2 {
+  background-color: var(--colour-accent-2);
   color: var(--colour-text-on-dark);
 }
 
-.badge--viewer {
-  background-color: var(--colour-accent-blue-light);
+.badge--accent-3 {
+  background-color: var(--colour-accent-3);
   color: var(--colour-text-on-dark);
 }
 
-.badge--guest {
-  background-color: var(--colour-accent-purple);
+.badge--accent-4 {
+  background-color: var(--colour-accent-4);
   color: var(--colour-text-on-dark);
 }
 
-.badge--deactivated {
+.badge--default {
   background-color: var(--colour-surface-default);
   color: var(--colour-text-on-light);
 }

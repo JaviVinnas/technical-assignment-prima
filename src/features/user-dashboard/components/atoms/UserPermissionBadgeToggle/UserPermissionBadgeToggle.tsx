@@ -26,21 +26,20 @@ export interface UserPermissionBadgeToggleProps {
   onClick?: () => void;
 }
 
-type BadgeToggleVariant = "admin" | "editor" | "viewer" | "guest" | "owner" | "deactivated";
+type BadgeToggleVariant = "accent-1" | "accent-2" | "accent-3" | "accent-4" | "default";
 
 /**
  * Maps UserPermission values to BadgeToggle variant values.
  *
- * Most permissions map directly to their badge variant, with "inactive"
- * mapping to "deactivated".
+ * Uses generic accent variants to keep BadgeToggle component domain-agnostic.
  */
 const PERMISSION_TO_BADGE_VARIANT = {
-  admin: "admin",
-  editor: "editor",
-  viewer: "viewer",
-  guest: "guest",
-  owner: "deactivated",
-  inactive: "deactivated",
+  admin: "accent-1",
+  editor: "accent-2",
+  viewer: "accent-3",
+  guest: "accent-4",
+  owner: "default",
+  inactive: "default",
 } as const satisfies Record<UserPermission, BadgeToggleVariant>;
 
 export function UserPermissionBadgeToggle({

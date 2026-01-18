@@ -24,21 +24,20 @@ export interface UserPermissionBadgeProps {
   className?: string;
 }
 
-type BadgeVariant = "admin" | "editor" | "viewer" | "guest" | "owner" | "deactivated";
+type BadgeVariant = "accent-1" | "accent-2" | "accent-3" | "accent-4" | "default";
 
 /**
  * Maps UserPermission values to Badge variant values.
  *
- * Most permissions map directly to their badge variant, with "inactive"
- * mapping to "deactivated".
+ * Uses generic accent variants to keep Badge component domain-agnostic.
  */
 const PERMISSION_TO_BADGE_VARIANT = {
-  admin: "admin",
-  editor: "editor",
-  viewer: "viewer",
-  guest: "guest",
-  owner: "deactivated",
-  inactive: "deactivated",
+  admin: "accent-1",
+  editor: "accent-2",
+  viewer: "accent-3",
+  guest: "accent-4",
+  owner: "default",
+  inactive: "default",
 } as const satisfies Record<UserPermission, BadgeVariant>;
 
 export function UserPermissionBadge({ permission, className = "" }: UserPermissionBadgeProps) {

@@ -14,11 +14,11 @@
   /* Colour Tokens - Accent (Primary) */
   --colour-accent-primary: #fb6232;
 
-  /* Colour Tokens - Accent (Secondary) */
-  --colour-accent-blue: #003569;
-  --colour-accent-teal: #269085;
-  --colour-accent-blue-light: #5993b9;
-  --colour-accent-purple: #9f009f;
+  /* Colour Tokens - Accent (Purpose-based) */
+  --colour-accent-1: #003569;
+  --colour-accent-2: #269085;
+  --colour-accent-3: #5993b9;
+  --colour-accent-4: #9f009f;
 
   /* Colour Tokens - Surface */
   --colour-surface-default: #ffffff; /* Deactivated state: text-primary on white */

@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useState } from "react";
+import { type InputHTMLAttributes, useRef, useState } from "react";
 
 import { SearchBox } from "../../../../../components/molecules/SearchBox";
 import { useUserDashboardContext } from "../../../context";
@@ -31,15 +31,18 @@ export interface UserSearchBoxProps
 export function UserSearchBox({ id, placeholder, className = "", ...rest }: UserSearchBoxProps) {
   const { searchQuery, setSearchQuery } = useUserDashboardContext();
   const [inputValue, setInputValue] = useState(searchQuery);
+  const inputValueRef = useRef(searchQuery);
 
   const userSearchBoxClassName = `user-search-box ${className}`.trim();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const newValue = event.target.value;
+    inputValueRef.current = newValue;
+    setInputValue(newValue);
   };
 
   const handleSearch = () => {
-    setSearchQuery(inputValue);
+    setSearchQuery(inputValueRef.current);
   };
 
   return (

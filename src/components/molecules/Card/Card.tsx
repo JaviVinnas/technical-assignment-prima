@@ -21,7 +21,7 @@ import "./Card.css";
  * ```tsx
  * <Card.Root>
  *   <Card.BadgeSlot>
- *     <Badge variant="admin">ADMIN</Badge>
+ *     <Badge variant="accent-1">ADMIN</Badge>
  *   </Card.BadgeSlot>
  *   <Card.Title>John Doe</Card.Title>
  *   <Card.Subtitle>Software Engineer</Card.Subtitle>

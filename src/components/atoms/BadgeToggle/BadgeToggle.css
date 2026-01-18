@@ -11,67 +11,67 @@
   transition: background-color var(--transition-base, 200ms) var(--transition-timing);
 }
 
-.badge-toggle.badge--admin:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-blue) 95%, black);
+.badge-toggle.badge--accent-1:hover {
+  background-color: color-mix(in srgb, var(--colour-accent-1) 95%, black);
 }
 
-.badge-toggle.badge--editor:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-teal) 95%, black);
+.badge-toggle.badge--accent-2:hover {
+  background-color: color-mix(in srgb, var(--colour-accent-2) 95%, black);
 }
 
-.badge-toggle.badge--viewer:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-blue-light) 95%, black);
+.badge-toggle.badge--accent-3:hover {
+  background-color: color-mix(in srgb, var(--colour-accent-3) 95%, black);
 }
 
-.badge-toggle.badge--guest:hover {
-  background-color: color-mix(in srgb, var(--colour-accent-purple) 95%, black);
+.badge-toggle.badge--accent-4:hover {
+  background-color: color-mix(in srgb, var(--colour-accent-4) 95%, black);
 }
 
-.badge-toggle.badge--deactivated:hover {
+.badge-toggle.badge--default:hover {
   background-color: color-mix(in srgb, var(--colour-surface-default) 92%, white);
 }
 
-.badge-toggle.badge--admin:active {
-  background-color: color-mix(in srgb, var(--colour-accent-blue) 85%, black);
+.badge-toggle.badge--accent-1:active {
+  background-color: color-mix(in srgb, var(--colour-accent-1) 85%, black);
 }
 
-.badge-toggle.badge--editor:active {
-  background-color: color-mix(in srgb, var(--colour-accent-teal) 85%, black);
+.badge-toggle.badge--accent-2:active {
+  background-color: color-mix(in srgb, var(--colour-accent-2) 85%, black);
 }
 
-.badge-toggle.badge--viewer:active {
-  background-color: color-mix(in srgb, var(--colour-accent-blue-light) 85%, black);
+.badge-toggle.badge--accent-3:active {
+  background-color: color-mix(in srgb, var(--colour-accent-3) 85%, black);
 }
 
-.badge-toggle.badge--guest:active {
-  background-color: color-mix(in srgb, var(--colour-accent-purple) 85%, black);
+.badge-toggle.badge--accent-4:active {
+  background-color: color-mix(in srgb, var(--colour-accent-4) 85%, black);
 }
 
-.badge-toggle.badge--deactivated:active {
+.badge-toggle.badge--default:active {
   background-color: color-mix(in srgb, var(--colour-surface-default) 88%, white);
 }
 
-.badge-toggle.badge--admin:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-blue);
+.badge-toggle.badge--accent-1:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-1);
   outline-offset: var(--outline-offset-focus);
 }
 
-.badge-toggle.badge--editor:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-teal);
+.badge-toggle.badge--accent-2:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-2);
   outline-offset: var(--outline-offset-focus);
 }
 
-.badge-toggle.badge--viewer:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-blue-light);
+.badge-toggle.badge--accent-3:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-3);
   outline-offset: var(--outline-offset-focus);
 }
 
-.badge-toggle.badge--guest:focus-visible {
-  outline: var(--outline-width-focus) solid var(--colour-accent-purple);
+.badge-toggle.badge--accent-4:focus-visible {
+  outline: var(--outline-width-focus) solid var(--colour-accent-4);
   outline-offset: var(--outline-offset-focus);
 }
 
-.badge-toggle.badge--deactivated:focus-visible {
+.badge-toggle.badge--default:focus-visible {
   outline: var(--outline-width-focus) solid var(--colour-surface-default);
   outline-offset: var(--outline-offset-focus);
 }

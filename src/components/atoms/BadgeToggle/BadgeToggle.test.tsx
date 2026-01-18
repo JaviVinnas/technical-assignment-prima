@@ -6,65 +6,65 @@ import { BadgeToggle } from "./BadgeToggle";
 
 describe("BadgeToggle", () => {
   describe("Rendering", () => {
-    it("renders badge toggle with admin variant", () => {
-      render(<BadgeToggle variant="admin">Admin</BadgeToggle>);
-      const badge = screen.getByRole("button", { name: /admin/i });
+    it("renders badge toggle with accent-1 variant", () => {
+      render(<BadgeToggle variant="accent-1">Accent 1</BadgeToggle>);
+      const badge = screen.getByRole("button", { name: /accent 1/i });
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass("badge", "badge--admin", "badge-toggle");
+      expect(badge).toHaveClass("badge", "badge--accent-1", "badge-toggle");
     });
 
-    it("renders badge toggle with editor variant", () => {
-      render(<BadgeToggle variant="editor">Editor</BadgeToggle>);
-      const badge = screen.getByRole("button", { name: /editor/i });
+    it("renders badge toggle with accent-2 variant", () => {
+      render(<BadgeToggle variant="accent-2">Accent 2</BadgeToggle>);
+      const badge = screen.getByRole("button", { name: /accent 2/i });
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass("badge", "badge--editor", "badge-toggle");
+      expect(badge).toHaveClass("badge", "badge--accent-2", "badge-toggle");
     });
 
-    it("renders badge toggle with viewer variant", () => {
-      render(<BadgeToggle variant="viewer">Viewer</BadgeToggle>);
-      const badge = screen.getByRole("button", { name: /viewer/i });
+    it("renders badge toggle with accent-3 variant", () => {
+      render(<BadgeToggle variant="accent-3">Accent 3</BadgeToggle>);
+      const badge = screen.getByRole("button", { name: /accent 3/i });
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass("badge", "badge--viewer", "badge-toggle");
+      expect(badge).toHaveClass("badge", "badge--accent-3", "badge-toggle");
     });
 
-    it("renders badge toggle with guest variant", () => {
-      render(<BadgeToggle variant="guest">Guest</BadgeToggle>);
-      const badge = screen.getByRole("button", { name: /guest/i });
+    it("renders badge toggle with accent-4 variant", () => {
+      render(<BadgeToggle variant="accent-4">Accent 4</BadgeToggle>);
+      const badge = screen.getByRole("button", { name: /accent 4/i });
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass("badge", "badge--guest", "badge-toggle");
+      expect(badge).toHaveClass("badge", "badge--accent-4", "badge-toggle");
     });
 
-    it("renders badge toggle with deactivated variant", () => {
-      render(<BadgeToggle variant="deactivated">Deactivated</BadgeToggle>);
-      const badge = screen.getByRole("button", { name: /deactivated/i });
+    it("renders badge toggle with default variant", () => {
+      render(<BadgeToggle variant="default">Default</BadgeToggle>);
+      const badge = screen.getByRole("button", { name: /default/i });
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass("badge", "badge--deactivated", "badge-toggle");
+      expect(badge).toHaveClass("badge", "badge--default", "badge-toggle");
     });
 
     it("renders badge toggle with children content", () => {
       render(
-        <BadgeToggle variant="admin">
-          <span>Admin User</span>
+        <BadgeToggle variant="accent-1">
+          <span>Badge Content</span>
         </BadgeToggle>,
       );
-      expect(screen.getByRole("button")).toHaveTextContent("Admin User");
+      expect(screen.getByRole("button")).toHaveTextContent("Badge Content");
     });
 
     it("applies additional className when provided", () => {
       render(
-        <BadgeToggle variant="admin" className="custom-class">
+        <BadgeToggle variant="accent-1" className="custom-class">
           Badge
         </BadgeToggle>,
       );
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge", "badge--admin", "badge-toggle", "custom-class");
+      expect(badge).toHaveClass("badge", "badge--accent-1", "badge-toggle", "custom-class");
     });
   });
 
   describe("Active State", () => {
     it("checkmark is always rendered but hidden when isActive is false", () => {
       render(
-        <BadgeToggle variant="admin" isActive={false}>
+        <BadgeToggle variant="accent-1" isActive={false}>
           Admin
         </BadgeToggle>,
       );
@@ -75,7 +75,7 @@ describe("BadgeToggle", () => {
     });
 
     it("checkmark is always rendered but hidden when isActive is not provided", () => {
-      render(<BadgeToggle variant="admin">Admin</BadgeToggle>);
+      render(<BadgeToggle variant="accent-1">Admin</BadgeToggle>);
       const badge = screen.getByRole("button");
       const checkmark = badge.querySelector(".badge-toggle__checkmark");
       expect(checkmark).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe("BadgeToggle", () => {
 
     it("checkmark is visible when isActive is true", () => {
       render(
-        <BadgeToggle variant="admin" isActive={true}>
+        <BadgeToggle variant="accent-1" isActive={true}>
           Admin
         </BadgeToggle>,
       );
@@ -96,7 +96,7 @@ describe("BadgeToggle", () => {
 
     it("updates checkmark visibility when isActive changes", () => {
       const { rerender } = render(
-        <BadgeToggle variant="admin" isActive={false}>
+        <BadgeToggle variant="accent-1" isActive={false}>
           Admin
         </BadgeToggle>,
       );
@@ -106,7 +106,7 @@ describe("BadgeToggle", () => {
       expect(checkmark).not.toHaveClass("badge-toggle__checkmark--visible");
 
       rerender(
-        <BadgeToggle variant="admin" isActive={true}>
+        <BadgeToggle variant="accent-1" isActive={true}>
           Admin
         </BadgeToggle>,
       );
@@ -122,7 +122,7 @@ describe("BadgeToggle", () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
-        <BadgeToggle variant="admin" onClick={handleClick}>
+        <BadgeToggle variant="accent-1" onClick={handleClick}>
           Click me
         </BadgeToggle>,
       );
@@ -137,7 +137,7 @@ describe("BadgeToggle", () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
-        <BadgeToggle variant="admin" onClick={handleClick}>
+        <BadgeToggle variant="accent-1" onClick={handleClick}>
           Click me
         </BadgeToggle>,
       );
@@ -153,7 +153,7 @@ describe("BadgeToggle", () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
-        <BadgeToggle variant="admin" onClick={handleClick}>
+        <BadgeToggle variant="accent-1" onClick={handleClick}>
           Click me
         </BadgeToggle>,
       );
@@ -168,12 +168,12 @@ describe("BadgeToggle", () => {
 
   describe("Accessibility", () => {
     it("has correct button role", () => {
-      render(<BadgeToggle variant="admin">Badge</BadgeToggle>);
+      render(<BadgeToggle variant="accent-1">Badge</BadgeToggle>);
       expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
     it("can be focused with keyboard", () => {
-      render(<BadgeToggle variant="admin">Badge</BadgeToggle>);
+      render(<BadgeToggle variant="accent-1">Badge</BadgeToggle>);
       const badge = screen.getByRole("button");
       badge.focus();
       expect(badge).toHaveFocus();
@@ -181,7 +181,7 @@ describe("BadgeToggle", () => {
 
     it("has aria-pressed=false when isActive is false", () => {
       render(
-        <BadgeToggle variant="admin" isActive={false}>
+        <BadgeToggle variant="accent-1" isActive={false}>
           Badge
         </BadgeToggle>,
       );
@@ -190,7 +190,7 @@ describe("BadgeToggle", () => {
 
     it("has aria-pressed=true when isActive is true", () => {
       render(
-        <BadgeToggle variant="admin" isActive={true}>
+        <BadgeToggle variant="accent-1" isActive={true}>
           Badge
         </BadgeToggle>,
       );
@@ -199,14 +199,14 @@ describe("BadgeToggle", () => {
 
     it("updates aria-pressed when isActive changes", () => {
       const { rerender } = render(
-        <BadgeToggle variant="admin" isActive={false}>
+        <BadgeToggle variant="accent-1" isActive={false}>
           Badge
         </BadgeToggle>,
       );
       expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "false");
 
       rerender(
-        <BadgeToggle variant="admin" isActive={true}>
+        <BadgeToggle variant="accent-1" isActive={true}>
           Badge
         </BadgeToggle>,
       );
@@ -215,8 +215,8 @@ describe("BadgeToggle", () => {
 
     it("checkmark icon has aria-hidden attribute", () => {
       render(
-        <BadgeToggle variant="admin" isActive={true}>
-          Admin
+        <BadgeToggle variant="accent-1" isActive={true}>
+          Badge
         </BadgeToggle>,
       );
       const checkmark = screen.getByRole("button").querySelector(".badge-toggle__checkmark");
@@ -225,20 +225,20 @@ describe("BadgeToggle", () => {
 
     it("supports aria-label for screen readers", () => {
       render(
-        <BadgeToggle variant="admin" aria-label="Admin user badge">
-          Admin
+        <BadgeToggle variant="accent-1" aria-label="Custom badge toggle">
+          Badge
         </BadgeToggle>,
       );
-      expect(screen.getByRole("button", { name: /admin user badge/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /custom badge toggle/i })).toBeInTheDocument();
     });
 
     it("supports aria-describedby", () => {
       render(
         <div>
-          <BadgeToggle variant="admin" aria-describedby="badge-help">
-            Admin
+          <BadgeToggle variant="accent-1" aria-describedby="badge-help">
+            Badge
           </BadgeToggle>
-          <span id="badge-help">This badge indicates admin privileges</span>
+          <span id="badge-help">This badge indicates a specific status</span>
         </div>,
       );
       const badge = screen.getByRole("button");
@@ -249,21 +249,21 @@ describe("BadgeToggle", () => {
   describe("BadgeToggle States", () => {
     it("has correct type attribute", () => {
       const { rerender } = render(
-        <BadgeToggle variant="admin" type="button">
+        <BadgeToggle variant="accent-1" type="button">
           Badge
         </BadgeToggle>,
       );
       expect(screen.getByRole("button")).toHaveAttribute("type", "button");
 
       rerender(
-        <BadgeToggle variant="admin" type="submit">
+        <BadgeToggle variant="accent-1" type="submit">
           Submit
         </BadgeToggle>,
       );
       expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
 
       rerender(
-        <BadgeToggle variant="admin" type="reset">
+        <BadgeToggle variant="accent-1" type="reset">
           Reset
         </BadgeToggle>,
       );
@@ -271,47 +271,47 @@ describe("BadgeToggle", () => {
     });
 
     it("defaults to type='button' when type is not specified", () => {
-      render(<BadgeToggle variant="admin">Badge</BadgeToggle>);
+      render(<BadgeToggle variant="accent-1">Badge</BadgeToggle>);
       expect(screen.getByRole("button")).toHaveAttribute("type", "button");
     });
   });
 
   describe("Design Tokens", () => {
-    it("applies admin variant styles with correct CSS classes", () => {
-      render(<BadgeToggle variant="admin">Admin</BadgeToggle>);
+    it("applies accent-1 variant styles with correct CSS classes", () => {
+      render(<BadgeToggle variant="accent-1">Accent 1</BadgeToggle>);
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge--admin");
+      expect(badge).toHaveClass("badge--accent-1");
     });
 
-    it("applies editor variant styles with correct CSS classes", () => {
-      render(<BadgeToggle variant="editor">Editor</BadgeToggle>);
+    it("applies accent-2 variant styles with correct CSS classes", () => {
+      render(<BadgeToggle variant="accent-2">Accent 2</BadgeToggle>);
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge--editor");
+      expect(badge).toHaveClass("badge--accent-2");
     });
 
-    it("applies viewer variant styles with correct CSS classes", () => {
-      render(<BadgeToggle variant="viewer">Viewer</BadgeToggle>);
+    it("applies accent-3 variant styles with correct CSS classes", () => {
+      render(<BadgeToggle variant="accent-3">Accent 3</BadgeToggle>);
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge--viewer");
+      expect(badge).toHaveClass("badge--accent-3");
     });
 
-    it("applies guest variant styles with correct CSS classes", () => {
-      render(<BadgeToggle variant="guest">Guest</BadgeToggle>);
+    it("applies accent-4 variant styles with correct CSS classes", () => {
+      render(<BadgeToggle variant="accent-4">Accent 4</BadgeToggle>);
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge--guest");
+      expect(badge).toHaveClass("badge--accent-4");
     });
 
-    it("applies deactivated variant styles with correct CSS classes", () => {
-      render(<BadgeToggle variant="deactivated">Deactivated</BadgeToggle>);
+    it("applies default variant styles with correct CSS classes", () => {
+      render(<BadgeToggle variant="default">Default</BadgeToggle>);
       const badge = screen.getByRole("button");
-      expect(badge).toHaveClass("badge--deactivated");
+      expect(badge).toHaveClass("badge--default");
     });
   });
 
   describe("HTML Attributes", () => {
     it("passes through additional HTML button attributes", () => {
       render(
-        <BadgeToggle variant="admin" data-testid="custom-badge" title="Tooltip">
+        <BadgeToggle variant="accent-1" data-testid="custom-badge" title="Tooltip">
           Badge
         </BadgeToggle>,
       );
@@ -322,7 +322,7 @@ describe("BadgeToggle", () => {
 
     it("supports form attributes", () => {
       render(
-        <BadgeToggle variant="admin" form="my-form" formAction="/submit">
+        <BadgeToggle variant="accent-1" form="my-form" formAction="/submit">
           Submit
         </BadgeToggle>,
       );
