@@ -77,6 +77,10 @@
   --transition-base: 200ms;
   --transition-slow: 300ms;
   --transition-timing: ease-in-out;
+  --transition-timing-interaction: ease-out; /* For direct user interactions (clicks, presses) */
+
+  /* Interaction Tokens */
+  --interaction-scale-active: 0.97; /* Scale applied when interactive elements are pressed */
 
   /* Button Height Tokens */
   --button-height-big: 4.875rem; /* 78px */

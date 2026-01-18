@@ -6,11 +6,19 @@
   color: var(--colour-accent-primary);
   text-decoration: underline;
   cursor: pointer;
-  transition: color var(--transition-base, 200ms) ease-in-out;
+  transition:
+    color var(--transition-base, 200ms) ease-in-out,
+    transform var(--transition-fast, 150ms) var(--transition-timing-interaction);
+  display: inline-block;
 }
 
 .external-link:hover {
   color: color-mix(in srgb, var(--colour-accent-primary) 90%, black);
+}
+
+.external-link:active {
+  color: color-mix(in srgb, var(--colour-accent-primary) 80%, black);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .external-link:focus-visible {

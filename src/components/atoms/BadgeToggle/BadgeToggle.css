@@ -8,7 +8,9 @@
   height: auto;
   padding: var(--spacing-sm) var(--spacing-md);
   vertical-align: baseline;
-  transition: background-color var(--transition-base, 200ms) var(--transition-timing);
+  transition:
+    background-color var(--transition-base, 200ms) var(--transition-timing),
+    transform var(--transition-fast, 150ms) var(--transition-timing-interaction);
 }
 
 .badge-toggle.badge--accent-1:hover {
@@ -33,22 +35,27 @@
 
 .badge-toggle.badge--accent-1:active {
   background-color: color-mix(in srgb, var(--colour-accent-1) 85%, black);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-2:active {
   background-color: color-mix(in srgb, var(--colour-accent-2) 85%, black);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-3:active {
   background-color: color-mix(in srgb, var(--colour-accent-3) 85%, black);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-4:active {
   background-color: color-mix(in srgb, var(--colour-accent-4) 85%, black);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--default:active {
   background-color: color-mix(in srgb, var(--colour-surface-default) 88%, white);
+  transform: scale(var(--interaction-scale-active));
 }
 
 .badge-toggle.badge--accent-1:focus-visible {
@@ -90,10 +97,10 @@
   overflow: hidden;
   margin-left: var(--spacing-checkmark-offset);
   transition:
-    width var(--transition-base, 200ms) var(--transition-timing),
-    height var(--transition-base, 200ms) var(--transition-timing),
-    opacity var(--transition-base, 200ms) var(--transition-timing),
-    margin-left var(--transition-base, 200ms) var(--transition-timing);
+    width var(--transition-base, 200ms) var(--transition-timing-interaction),
+    height var(--transition-base, 200ms) var(--transition-timing-interaction),
+    opacity var(--transition-base, 200ms) var(--transition-timing-interaction),
+    margin-left var(--transition-base, 200ms) var(--transition-timing-interaction);
 }
 
 .badge-toggle__checkmark--visible {
