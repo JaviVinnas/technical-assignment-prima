@@ -12,7 +12,6 @@
   font-size: var(--typography-text-xs-size);
   font-weight: var(--typography-text-xs-weight);
   line-height: var(--typography-text-xs-line-height);
-  letter-spacing: var(--letter-spacing-s);
   text-transform: uppercase;
   margin: 0;
 }
