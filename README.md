@@ -98,7 +98,3 @@ Design token system in [`src/index.css`](src/index.css) covering colours, spacin
 ## Figma Implementation
 
 Design implemented following [Figma specifications](https://www.figma.com/design/ESP3mNtKRj1aI458c08QBb/%F0%9F%92%BB-Website-Home-Test?node-id=0-1&t=tmrCaYq4wADJCHvD-1) with pixel-perfect spacing, tokenised colours, and extended responsive behaviour beyond desktop-only designs.
-
----
-
-**Built with attention to detail, tested thoroughly, and crafted for production.**
