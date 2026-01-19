@@ -1,6 +1,6 @@
 import { type InputHTMLAttributes, useState } from "react";
 
-import { SearchBox } from "../../../../../components/molecules/SearchBox";
+import { SearchBox, type SearchBoxProps } from "../../../../../components/molecules/SearchBox";
 import { useUserDashboardContext } from "../../../context";
 
 import "./UserSearchBox.css";
@@ -35,11 +35,11 @@ export function UserSearchBox({ id, placeholder, className = "", ...rest }: User
 
   const userSearchBoxClassName = `user-search-box ${className}`.trim();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange: SearchBoxProps["onChange"] = (event) => {
     setInputValue(event.target.value);
   };
 
-  const handleSearch = (value: string) => {
+  const handleSearch: SearchBoxProps["onSearch"] = (value) => {
     setSearchQuery(value);
   };
 

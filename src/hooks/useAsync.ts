@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * Configuration options for the useAsync hook.
@@ -29,6 +29,7 @@ export interface UseAsyncLoadingResult {
   isLoading: true;
   isError: false;
   isSuccess: false;
+  retry: () => void;
 }
 
 /**
@@ -42,6 +43,7 @@ export interface UseAsyncErrorResult {
   isError: true;
   isSuccess: false;
   error: Error;
+  retry: () => void;
 }
 
 /**
@@ -54,6 +56,7 @@ export interface UseAsyncSuccessResult<T> {
   isLoading: false;
   isError: false;
   isSuccess: true;
+  retry: () => void;
 }
 
 /**
@@ -67,12 +70,37 @@ export type UseAsyncResult<T> =
   | UseAsyncSuccessResult<T>;
 
 /**
- * Input for the useAsync hook containing data and optional refetch trigger.
+ * Input for the useAsync hook containing data.
  */
 export interface UseAsyncInput<T> {
   data: T;
-  refetchTrigger?: number;
 }
+
+/**
+ * Internal state type for useAsync hook without retry callback.
+ *
+ * This type is used internally before the retry callback is added.
+ */
+type UseAsyncInternalState<T> =
+  | {
+      data: undefined;
+      isLoading: true;
+      isError: false;
+      isSuccess: false;
+    }
+  | {
+      data: undefined;
+      isLoading: false;
+      isError: true;
+      isSuccess: false;
+      error: Error;
+    }
+  | {
+      data: T;
+      isLoading: false;
+      isError: false;
+      isSuccess: true;
+    };
 
 /**
  * Type guard to check if async result is in loading state.
@@ -151,11 +179,11 @@ export function isAsyncSuccess<T>(result: UseAsyncResult<T>): result is UseAsync
  * - Random loading delay within a configurable range
  * - Configurable error probability
  * - Automatic state transitions (loading -> success/error)
- * - Refetch capability via refetchTrigger
+ * - Refetch capability via retry() callback
  *
- * @param input - Object containing data and optional refetch trigger
+ * @param input - Object containing data to load asynchronously
  * @param options - Configuration for loading delay and error probability
- * @returns Discriminated union representing loading, error, or success state
+ * @returns Discriminated union representing loading, error, or success state with retry callback
  *
  * @example
  * ```tsx
@@ -166,7 +194,7 @@ export function isAsyncSuccess<T>(result: UseAsyncResult<T>): result is UseAsync
  * }
  *
  * if (isAsyncError(result)) {
- *   return <ErrorState error={result.error} />;
+ *   return <ErrorState error={result.error} onRetry={result.retry} />;
  * }
  *
  * // TypeScript knows result.data is T here
@@ -174,15 +202,20 @@ export function isAsyncSuccess<T>(result: UseAsyncResult<T>): result is UseAsync
  * ```
  */
 export function useAsync<T>(input: UseAsyncInput<T>, options?: UseAsyncOptions): UseAsyncResult<T> {
-  const { data, refetchTrigger = 0 } = input;
+  const { data } = input;
   const { delayRange = [200, 800], errorProbability = 0.1 } = options || {};
 
-  const [state, setState] = useState<UseAsyncResult<T>>({
+  const [refetchTrigger, setRefetchTrigger] = useState(0);
+  const [state, setState] = useState<UseAsyncInternalState<T>>({
     data: undefined,
     isLoading: true,
     isError: false,
     isSuccess: false,
   });
+
+  const retry = useCallback(() => {
+    setRefetchTrigger((prev) => prev + 1);
+  }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: refetchTrigger is intentionally a dependency to enable retry functionality, delayRange and errorProbability are configuration options that should not trigger refetch
   useEffect(() => {
@@ -227,5 +260,5 @@ export function useAsync<T>(input: UseAsyncInput<T>, options?: UseAsyncOptions):
     };
   }, [data, refetchTrigger]);
 
-  return state;
+  return { ...state, retry } as UseAsyncResult<T>;
 }

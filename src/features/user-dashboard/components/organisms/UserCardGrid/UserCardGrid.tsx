@@ -1,13 +1,8 @@
-import { useCallback, useState } from "react";
-
 import { CardGrid } from "../../../../../components/organisms/CardGrid";
 import { EmptyState } from "../../../../../components/organisms/EmptyState";
 import { ErrorState } from "../../../../../components/organisms/ErrorState";
-import { useAsyncFiltered } from "../../../../../hooks/useAsyncFiltered";
 import { useUserDashboardContext } from "../../../context";
-import { mockUsers } from "../../../data/mockUsers";
-import type { User } from "../../../types";
-import { filterUsers } from "../../../utils/filterUsers";
+import { useUsersQuery } from "../../../hooks/useUsersQuery";
 import { UserCard } from "../../molecules/UserCard";
 import { UserCardGridSkeleton } from "./UserCardGrid.skeleton";
 
@@ -36,18 +31,8 @@ export interface UserCardGridProps {
 
 export function UserCardGrid({ className = "" }: UserCardGridProps) {
   const { searchQuery, selectedPermissions } = useUserDashboardContext();
-  const [refetchTrigger, setRefetchTrigger] = useState(0);
 
-  const handleRetry = () => {
-    setRefetchTrigger((prev) => prev + 1);
-  };
-
-  const filterFn = useCallback(
-    (users: User[]) => filterUsers(users, searchQuery, selectedPermissions),
-    [searchQuery, selectedPermissions],
-  );
-
-  const asyncResult = useAsyncFiltered(mockUsers, filterFn, refetchTrigger, {
+  const asyncResult = useUsersQuery(searchQuery, selectedPermissions, {
     delayRange: [0, 500],
     errorProbability: 0.1,
   });
@@ -61,7 +46,7 @@ export function UserCardGrid({ className = "" }: UserCardGridProps) {
   if (asyncResult.isError) {
     return (
       <section className={userCardGridClassName}>
-        <ErrorState message="Failed to load users." onRetry={handleRetry} />
+        <ErrorState message="Failed to load users." onRetry={asyncResult.retry} />
       </section>
     );
   }
