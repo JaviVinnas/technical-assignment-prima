@@ -50,7 +50,7 @@ export function BadgeToggle({
   return (
     <button type={type} className={badgeClassName} aria-pressed={isActive} {...rest}>
       {children}
-      <CheckIcon size={12} className={checkmarkClassName} />
+      <CheckIcon size={12} className={checkmarkClassName} data-testid="checkmark-icon" />
     </button>
   );
 }

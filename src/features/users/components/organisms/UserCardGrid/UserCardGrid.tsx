@@ -2,7 +2,7 @@ import { CardGrid } from "../../../../../components/organisms/CardGrid";
 import { EmptyState } from "../../../../../components/organisms/EmptyState";
 import { ErrorState } from "../../../../../components/organisms/ErrorState";
 import { showNotImplementedAlert } from "../../../../../utils";
-import { USER_QUERY_ASYNC_OPTIONS } from "../../../constants";
+import { DEFAULT_SKELETON_COUNT, USER_QUERY_ASYNC_OPTIONS } from "../../../../../constants";
 import { useUserDashboardContext } from "../../../context";
 import { useUsersQuery } from "../../../hooks/useUsersQuery";
 import type { User } from "../../../types";
@@ -58,7 +58,7 @@ export function UserCardGrid({
   const userCardGridClassName = `user-card-grid ${className}`.trim();
 
   if (isLoading) {
-    return <UserCardGridSkeleton count={6} className={className} />;
+    return <UserCardGridSkeleton count={DEFAULT_SKELETON_COUNT} className={className} />;
   }
 
   if (isError) {
@@ -78,8 +78,8 @@ export function UserCardGrid({
   }
 
   return (
-    <section className={userCardGridClassName}>
-      <CardGrid>
+    <section className={userCardGridClassName} aria-label="User Directory">
+      <CardGrid aria-label="User Grid">
         {users.map((user) => (
           <UserCard key={user.contactInfo} user={user} onViewDetails={onViewDetails} />
         ))}

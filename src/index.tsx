@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { ErrorBoundary } from "./components/organisms/ErrorBoundary";
-import { UserDashboardPage } from "./features/user-dashboard";
+import { UserDashboardPage } from "./features/users";
 
 import "./index.css";
 

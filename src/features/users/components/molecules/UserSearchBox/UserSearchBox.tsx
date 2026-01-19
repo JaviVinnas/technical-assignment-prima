@@ -67,7 +67,7 @@ export function UserSearchBox({
   };
 
   return (
-    <section className={userSearchBoxClassName}>
+    <section className={userSearchBoxClassName} aria-label="User search">
       <label htmlFor={id} className="label label--secondary user-search-box__label">
         WHAT ARE YOU LOOKING FOR?
       </label>

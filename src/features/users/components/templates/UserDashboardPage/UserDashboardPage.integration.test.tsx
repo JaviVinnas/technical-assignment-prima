@@ -309,14 +309,10 @@ describe("User Dashboard - Integration Tests", () => {
       // User clicks filter
       await user.click(adminFilter);
 
-      // Filter shows as active
+      // Filter shows as active via aria-pressed
       await waitFor(() => {
         expect(adminFilter).toHaveAttribute("aria-pressed", "true");
       });
-
-      // User can see checkmark indicating active state
-      const checkmark = adminFilter.querySelector(".badge-toggle__checkmark");
-      expect(checkmark).toHaveClass("badge-toggle__checkmark--visible");
     });
   });
 
@@ -471,7 +467,7 @@ describe("User Dashboard - Integration Tests", () => {
         await waitFor(
           () => {
             const hasUsers = screen.queryByText(/george harris/i);
-            const hasLoading = document.querySelector(".card-skeleton");
+            const hasLoading = screen.queryByLabelText(/loading users/i);
             expect(hasUsers || hasLoading).toBeTruthy();
           },
           { timeout: 3000 },

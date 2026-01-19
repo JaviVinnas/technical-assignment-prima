@@ -2,7 +2,7 @@ export type { UserPermissionBadgeProps } from "./components/atoms/UserPermission
 export { UserPermissionBadge } from "./components/atoms/UserPermissionBadge";
 export type { UserCardProps } from "./components/molecules/UserCard";
 
-// Opcional: exports internos si se usan en otros lugares
+// Optional: internal exports if used in other places
 export { UserCard } from "./components/molecules/UserCard";
 export { UserDashboardPage } from "./components/templates/UserDashboardPage";
 export type { User, UserPermission } from "./types";

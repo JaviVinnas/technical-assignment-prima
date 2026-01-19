@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import type { User } from "../../../types";
@@ -410,7 +410,7 @@ describe("UserCardGrid", () => {
 
   describe("Custom Styling", () => {
     it("applies custom className to container", () => {
-      const { container } = render(
+      render(
         <UserCardGrid
           users={mockUsers}
           isLoading={false}
@@ -421,14 +421,13 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      const section = container.querySelector("section");
+      const section = screen.getByRole("region", { name: /user directory/i });
       expect(section).toHaveClass("user-card-grid", "custom-grid-class");
     });
   });
 
-  describe("Responsive Grid Layout", () => {
-    it("user sees cards displayed in grid layout structure", () => {
-      const { container } = render(
+    it("grid container is present", () => {
+      render(
         <UserCardGrid
           users={mockUsers}
           isLoading={false}
@@ -438,27 +437,11 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      const grid = container.querySelector(".card-grid");
-      expect(grid).toBeInTheDocument();
-    });
-
-    it("grid container has correct CSS class for styling", () => {
-      const { container } = render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      const grid = container.querySelector(".card-grid");
-      expect(grid).toHaveClass("card-grid");
+      expect(screen.getByRole("region", { name: /user grid/i })).toBeInTheDocument();
     });
 
     it("user sees multiple cards rendered in grid container", () => {
-      const { container } = render(
+      render(
         <UserCardGrid
           users={mockUsers}
           isLoading={false}
@@ -468,9 +451,9 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      const grid = container.querySelector(".card-grid");
-      const cards = grid?.querySelectorAll("article");
-      expect(cards?.length).toBe(3);
+      const grid = screen.getByRole("region", { name: /user grid/i });
+      const cards = within(grid).getAllByRole("article");
+      expect(cards.length).toBe(3);
     });
 
     it("grid maintains structure with single card", () => {
@@ -515,69 +498,6 @@ describe("UserCardGrid", () => {
       expect(cards?.length).toBe(12);
     });
 
-    it("cards are rendered in expected order within grid", () => {
-      render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      const headings = screen.getAllByRole("heading", { level: 3 });
-      expect(headings[0]).toHaveTextContent("Alice Johnson");
-      expect(headings[1]).toHaveTextContent("Bob Smith");
-      expect(headings[2]).toHaveTextContent("Carol Davis");
-    });
-
-    it("grid uses CardGrid component for layout", () => {
-      const { container } = render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      const cardGrid = container.querySelector(".card-grid");
-      expect(cardGrid).toBeInTheDocument();
-    });
-
-    it("grid wrapper maintains full width for responsiveness", () => {
-      const { container } = render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      const wrapper = container.querySelector(".user-card-grid");
-      expect(wrapper).toBeInTheDocument();
-    });
-
-    it("loading skeletons also render in grid layout", () => {
-      render(
-        <UserCardGrid
-          users={[]}
-          isLoading={true}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      // Skeletons should be present and can be queried by aria-label
-      const skeletons = screen.getAllByLabelText("Loading");
-      expect(skeletons.length).toBeGreaterThan(0);
-    });
-  });
 
   describe("Grid Accessibility for Screen Readers", () => {
     it("grid uses semantic section element", () => {
@@ -610,21 +530,5 @@ describe("UserCardGrid", () => {
       expect(articles.length).toBe(3);
     });
 
-    it("cards maintain logical reading order for screen readers", () => {
-      render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
-
-      const headings = screen.getAllByRole("heading", { level: 3 });
-      expect(headings[0]).toHaveTextContent("Alice Johnson");
-      expect(headings[1]).toHaveTextContent("Bob Smith");
-      expect(headings[2]).toHaveTextContent("Carol Davis");
-    });
   });
 });

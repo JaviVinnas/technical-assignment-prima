@@ -68,6 +68,7 @@ export function UserFiltersRow({
   return (
     <FiltersRow
       label="FILTER BY:"
+      aria-label="User filters"
       options={PERMISSION_OPTIONS}
       selected={selectedPermissions}
       onToggle={onToggle}

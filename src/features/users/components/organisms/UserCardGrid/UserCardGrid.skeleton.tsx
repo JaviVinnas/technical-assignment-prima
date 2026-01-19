@@ -21,7 +21,7 @@ export function UserCardGridSkeleton({ count = 6, className = "" }: UserCardGrid
   const userCardGridClassName = `user-card-grid ${className}`.trim();
 
   return (
-    <section className={userCardGridClassName}>
+    <section className={userCardGridClassName} aria-busy="true" aria-label="Loading users">
       <CardGridSkeleton>
         {Array.from({ length: count }, (_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton items are static and presentational, order never changes
