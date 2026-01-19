@@ -1,54 +1,43 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { UserDashboardPage } from "./components/templates/UserDashboardPage";
+import { UserDashboardPage } from "./UserDashboardPage";
+
+// Mock useAsyncFiltered to make tests deterministic (no random delays or errors)
+vi.mock("../../../../../hooks/useAsyncFiltered", async () => {
+  const actual = await vi.importActual<typeof import("../../../../../hooks/useAsyncFiltered")>(
+    "../../../../../hooks/useAsyncFiltered",
+  );
+  return {
+    ...actual,
+    useAsyncFiltered: <T,>(
+      data: readonly T[],
+      filterFn: (data: readonly T[]) => T[],
+      _options: import("../../../../../hooks/useAsync").UseAsyncOptions = {},
+    ) => {
+      // Call the real implementation with deterministic options
+      return actual.useAsyncFiltered(data, filterFn, {
+        delayRange: [0, 50],
+        errorProbability: 0,
+      });
+    },
+  };
+});
 
 /**
- * Helper function to wait for initial data to load, handling potential errors.
+ * Helper function to wait for initial data to load.
  *
- * Since useUsersQuery has random delays and 10% error probability, this helper
- * waits for either data or error state, and retries if needed up to 5 times.
+ * With the mocked useAsyncFiltered, data loads deterministically with
+ * short delays and no random errors. This helper simply waits for data
+ * to appear in the DOM.
  */
 async function waitForInitialDataLoad() {
-  const maxRetries = 5;
-  let retryCount = 0;
-
-  while (retryCount < maxRetries) {
-    // Wait for loading to complete (either success or error)
-    await waitFor(
-      () => {
-        const hasData = screen.queryByText(/george harris/i) || screen.queryByText(/arianna/i);
-        const hasError = screen.queryByText(/failed to load users/i);
-        // Should have resolved to either data or error (not still loading)
-        expect(hasData || hasError).toBeTruthy();
-      },
-      { timeout: 3000 },
-    );
-
-    // Check if we have data - if so, we're done
-    if (screen.queryByText(/george harris/i) || screen.queryByText(/arianna/i)) {
-      return;
-    }
-
-    // If we got an error, retry
-    const retryButton = screen.queryByRole("button", { name: /try again/i });
-    if (retryButton) {
-      const user = userEvent.setup();
-      await user.click(retryButton);
-      retryCount++;
-    } else {
-      // No retry button and no data? Break out
-      break;
-    }
-  }
-
-  // Final check - throw error if we still don't have data after all retries
   await waitFor(
     () => {
       const hasData = screen.queryByText(/george harris/i) || screen.queryByText(/arianna/i);
       expect(hasData).toBeTruthy();
     },
-    { timeout: 1000 },
+    { timeout: 500 },
   );
 }
 
@@ -415,17 +404,19 @@ describe("User Dashboard - Integration Tests", () => {
       // Wait for initial data load (handling potential errors)
       await waitForInitialDataLoad();
 
-      // User searches for "Product" and presses Enter
+      // User searches for "ar" (by name) and presses Enter
+      // This matches: Arianna Russo, Sarah Williams, Marco Esposito
       const searchInput = screen.getByRole("textbox", {
         name: /what are you looking for/i,
       });
-      await user.type(searchInput, "Product{Enter}");
+      await user.type(searchInput, "ar{Enter}");
 
       await waitFor(
         () => {
-          // Multiple people have "Product" in their role
-          expect(screen.getByText(/arianna russo/i)).toBeInTheDocument(); // Product Designer
-          expect(screen.getByText(/emma clark/i)).toBeInTheDocument(); // Product Manager
+          // Multiple people have "ar" in their name
+          expect(screen.getByText(/arianna russo/i)).toBeInTheDocument();
+          expect(screen.getByText(/sarah williams/i)).toBeInTheDocument();
+          expect(screen.getByText(/marco esposito/i)).toBeInTheDocument();
         },
         { timeout: 3000 },
       );
@@ -434,7 +425,7 @@ describe("User Dashboard - Integration Tests", () => {
       const editorFilter = screen.getByRole("button", { name: /editor/i, pressed: false });
       await user.click(editorFilter);
 
-      // User sees only Arianna (Product Designer with Editor permission)
+      // User sees only Arianna (has "ar" in name with Editor permission)
       await waitFor(
         () => {
           expect(screen.getByText(/arianna russo/i)).toBeInTheDocument();
@@ -442,7 +433,8 @@ describe("User Dashboard - Integration Tests", () => {
         { timeout: 3000 },
       );
 
-      expect(screen.queryByText(/emma clark/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/sarah williams/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/marco esposito/i)).not.toBeInTheDocument();
     });
   });
 

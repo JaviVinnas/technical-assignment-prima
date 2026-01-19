@@ -51,7 +51,7 @@ function CardSkeletonRoot({ children, className = "", ...rest }: CardSkeletonRoo
   const rootClassName = `card-skeleton ${className}`.trim();
 
   return (
-    <article className={rootClassName} {...rest}>
+    <article className={rootClassName} aria-busy="true" aria-label="Loading" {...rest}>
       {children}
     </article>
   );

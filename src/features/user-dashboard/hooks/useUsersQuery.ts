@@ -43,16 +43,5 @@ export function useUsersQuery(
     [nameContains, selectedPermissions],
   );
 
-  // Disable random errors in test environment for deterministic tests
-  // Check both Vite mode and Node environment
-  const isTest =
-    // @ts-expect-error - import.meta.env.MODE is provided by Vite
-    import.meta.env.MODE === "test" ||
-    // @ts-expect-error - process.env.NODE_ENV exists in Node environments
-    (typeof process !== "undefined" && process.env?.NODE_ENV === "test");
-  const testOptions: UseAsyncOptions = isTest
-    ? { ...options, delayRange: [0, 50], errorProbability: 0 }
-    : options;
-
-  return useAsyncFiltered(mockUsers, filterFn, testOptions);
+  return useAsyncFiltered(mockUsers, filterFn, options);
 }

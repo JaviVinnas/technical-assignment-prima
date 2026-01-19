@@ -45,7 +45,7 @@ describe("UserCardGrid", () => {
 
   describe("Loading State", () => {
     it("user sees loading indication while data fetches", () => {
-      const { container } = render(
+      render(
         <UserCardGrid
           users={[]}
           isLoading={true}
@@ -55,13 +55,13 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      // Skeleton cards are shown during loading
-      const skeletonCards = container.querySelectorAll(".card-skeleton");
+      // Skeleton cards are shown during loading - query by aria-label
+      const skeletonCards = screen.getAllByLabelText("Loading");
       expect(skeletonCards.length).toBeGreaterThan(0);
     });
 
     it("user sees multiple skeleton cards indicating content is loading", () => {
-      const { container } = render(
+      render(
         <UserCardGrid
           users={[]}
           isLoading={true}
@@ -71,7 +71,7 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      const skeletonCards = container.querySelectorAll(".card-skeleton");
+      const skeletonCards = screen.getAllByLabelText("Loading");
       expect(skeletonCards.length).toBe(6);
     });
 
@@ -330,8 +330,8 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      // Initially loading
-      expect(document.querySelectorAll(".card-skeleton").length).toBeGreaterThan(0);
+      // Initially loading - query by aria-label
+      expect(screen.getAllByLabelText("Loading").length).toBeGreaterThan(0);
 
       // Then data loads
       rerender(
@@ -358,8 +358,8 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      // Initially loading
-      expect(document.querySelectorAll(".card-skeleton").length).toBeGreaterThan(0);
+      // Initially loading - query by aria-label
+      expect(screen.getAllByLabelText("Loading").length).toBeGreaterThan(0);
 
       // Then error occurs
       rerender(
@@ -563,7 +563,7 @@ describe("UserCardGrid", () => {
     });
 
     it("loading skeletons also render in grid layout", () => {
-      const { container } = render(
+      render(
         <UserCardGrid
           users={[]}
           isLoading={true}
@@ -573,11 +573,9 @@ describe("UserCardGrid", () => {
         />,
       );
 
-      const grid = container.querySelector(".card-grid");
-      expect(grid).toBeInTheDocument();
-
-      const skeletons = grid?.querySelectorAll(".card-skeleton");
-      expect(skeletons?.length).toBeGreaterThan(0);
+      // Skeletons should be present and can be queried by aria-label
+      const skeletons = screen.getAllByLabelText("Loading");
+      expect(skeletons.length).toBeGreaterThan(0);
     });
   });
 

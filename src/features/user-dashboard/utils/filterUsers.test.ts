@@ -111,14 +111,23 @@ describe("filterUsers", () => {
     });
 
     it("returns multiple users when query matches multiple names", () => {
-      const result = filterUsers(mockUsers, "Manager", []);
+      // Search for "o" which appears in Alice Johnson, Bob Smith, Carol Davis, David Wilson, Emma Brown
+      const result = filterUsers(mockUsers, "o", []);
 
       expect(result.length).toBeGreaterThan(1);
       const names = result.map((u) => u.name);
-      expect(names).toContain("Bob Smith"); // Product Manager
-      expect(names).toContain("David Wilson"); // Marketing Manager
-      // Carol Davis is a Designer, so shouldn't be in results
-      expect(names).not.toContain("Carol Davis");
+      expect(names).toContain("Alice Johnson");
+      expect(names).toContain("Bob Smith");
+      expect(names).toContain("Carol Davis");
+      expect(names).toContain("David Wilson");
+      expect(names).toContain("Emma Brown");
+    });
+
+    it("does not match by role, only by name", () => {
+      // "Manager" is a role, not in any name
+      const result = filterUsers(mockUsers, "Manager", []);
+
+      expect(result).toHaveLength(0);
     });
 
     it("returns empty array when no names match query", () => {
@@ -140,12 +149,6 @@ describe("filterUsers", () => {
 
       expect(result).toHaveLength(1);
       expect(result[0].name).toBe("Bob Smith");
-    });
-
-    it("returns empty array for query that matches no users", () => {
-      const result = filterUsers(mockUsers, "xyz123", []);
-
-      expect(result).toEqual([]);
     });
   });
 
@@ -470,11 +473,13 @@ describe("filterUsers", () => {
       const allUsers = filterUsers(mockUsers, "", []);
       expect(allUsers).toHaveLength(6);
 
-      const searchResults = filterUsers(mockUsers, "Manager", []);
+      // Search by name "a" which matches Alice, Carol, Emma, Frank
+      const searchResults = filterUsers(mockUsers, "a", []);
       expect(searchResults.length).toBeGreaterThan(0);
       expect(searchResults.length).toBeLessThan(6);
 
-      const finalResults = filterUsers(mockUsers, "Manager", ["admin"]);
+      // Further filter by admin permission
+      const finalResults = filterUsers(mockUsers, "a", ["admin"]);
       expect(finalResults.length).toBeLessThanOrEqual(searchResults.length);
     });
 

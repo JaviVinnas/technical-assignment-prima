@@ -1,7 +1,5 @@
 import { useRef, useSyncExternalStore } from "react";
 
-import type { UserDashboardState } from "../features/user-dashboard/types";
-
 /**
  * All available localStorage keys defined as a const object.
  *
@@ -19,9 +17,16 @@ export const LocalStorageKeys = {
  * This interface ensures type safety by mapping keys to their corresponding
  * value types. When adding new keys, update both LocalStorageKeys and this
  * interface.
+ *
+ * NOTE: To avoid circular dependencies between global hooks and feature code,
+ * feature-specific types are defined inline here rather than imported.
+ * This keeps the global hook self-contained while still providing type safety.
  */
 export interface LocalStorageValueMap {
-  [LocalStorageKeys.USER_DASHBOARD_STATE]: UserDashboardState;
+  [LocalStorageKeys.USER_DASHBOARD_STATE]: {
+    searchQuery: string;
+    selectedPermissions: readonly string[];
+  };
 }
 
 /**

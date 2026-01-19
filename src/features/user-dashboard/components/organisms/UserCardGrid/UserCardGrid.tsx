@@ -2,6 +2,7 @@ import { CardGrid } from "../../../../../components/organisms/CardGrid";
 import { EmptyState } from "../../../../../components/organisms/EmptyState";
 import { ErrorState } from "../../../../../components/organisms/ErrorState";
 import { showNotImplementedAlert } from "../../../../../utils";
+import { USER_QUERY_ASYNC_OPTIONS } from "../../../constants";
 import { useUserDashboardContext } from "../../../context";
 import { useUsersQuery } from "../../../hooks/useUsersQuery";
 import type { User } from "../../../types";
@@ -107,10 +108,7 @@ export interface UserCardGridContainerProps {
 export function UserCardGridContainer({ className }: UserCardGridContainerProps) {
   const { searchQuery, selectedPermissions } = useUserDashboardContext();
 
-  const asyncResult = useUsersQuery(searchQuery, selectedPermissions, {
-    delayRange: [0, 500],
-    errorProbability: 0.1,
-  });
+  const asyncResult = useUsersQuery(searchQuery, selectedPermissions, USER_QUERY_ASYNC_OPTIONS);
 
   return (
     <UserCardGrid
