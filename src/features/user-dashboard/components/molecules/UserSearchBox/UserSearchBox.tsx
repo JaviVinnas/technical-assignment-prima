@@ -19,14 +19,19 @@ import "./UserSearchBox.css";
  * - Clearing the input automatically triggers a search to show all users
  * - Search state is synchronised with permission filters
  *
+ * Type composition: Extends SearchBoxProps but omits value, onChange, and
+ * onSearch as these are managed internally via the user dashboard context.
+ * All other SearchBox props (id, placeholder, autoSearchOnClear, formProps,
+ * className, etc.) are inherited and available.
+ *
  * @param props - UserSearchBox configuration
  * @param props.id - Input element ID (required for accessibility)
  * @param props.placeholder - Placeholder text for the input (defaults to SearchBox default)
- * @param props.className - Additional CSS classes applied to the container
+ * @param props.className - Additional CSS classes applied to the container (inherited from SearchBoxProps)
  */
 export interface UserSearchBoxProps
   extends Omit<SearchBoxProps, "value" | "onChange" | "onSearch"> {
-  className?: string;
+  // All props inherited from SearchBoxProps except value, onChange, and onSearch
 }
 
 export function UserSearchBox({ id, placeholder, className = "", ...rest }: UserSearchBoxProps) {

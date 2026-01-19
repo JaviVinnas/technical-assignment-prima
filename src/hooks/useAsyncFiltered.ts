@@ -13,7 +13,10 @@ import { useAsync } from "./useAsync";
  * The returned result includes a retry() callback for refetching data, which
  * is passed through from the underlying useAsync hook.
  *
- * @param data - Original data array to filter
+ * Supports both mutable and readonly arrays for flexibility with immutable
+ * data sources.
+ *
+ * @param data - Original data array to filter (can be readonly)
  * @param filterFn - Filter function to apply to data
  * @param options - Async behaviour configuration (delay, error probability)
  * @returns Async result with filtered data and retry callback
@@ -33,9 +36,9 @@ import { useAsync } from "./useAsync";
  * ```
  */
 export function useAsyncFiltered<T>(
-  data: T[],
-  filterFn: (data: T[]) => T[],
-  options?: UseAsyncOptions,
+  data: readonly T[],
+  filterFn: (data: readonly T[]) => T[],
+  options: UseAsyncOptions = {},
 ): UseAsyncResult<T[]> {
   const filteredData = useMemo(() => filterFn(data), [data, filterFn]);
 

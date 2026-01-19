@@ -201,9 +201,12 @@ export function isAsyncSuccess<T>(result: UseAsyncResult<T>): result is UseAsync
  * return <UserList users={result.data} />;
  * ```
  */
-export function useAsync<T>(input: UseAsyncInput<T>, options?: UseAsyncOptions): UseAsyncResult<T> {
+export function useAsync<T>(
+  input: UseAsyncInput<T>,
+  options: UseAsyncOptions = {},
+): UseAsyncResult<T> {
   const { data } = input;
-  const { delayRange = [200, 800], errorProbability = 0.1 } = options || {};
+  const { delayRange = [200, 800], errorProbability = 0.1 } = options;
 
   const [refetchTrigger, setRefetchTrigger] = useState(0);
   const [state, setState] = useState<UseAsyncInternalState<T>>({

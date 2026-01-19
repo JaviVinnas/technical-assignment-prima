@@ -1,7 +1,15 @@
-import type { HTMLAttributes, ReactNode } from "react";
-
 import { BadgeSkeleton } from "../../atoms/Badge/Badge.skeleton";
 import { ButtonSkeleton } from "../../atoms/Button/Button.skeleton";
+import type {
+  CardActionProps,
+  CardBadgeSlotProps,
+  CardKeyValuePairKeyProps,
+  CardKeyValuePairRootProps,
+  CardKeyValuePairValueProps,
+  CardRootProps,
+  CardSubtitleProps,
+  CardTitleProps,
+} from "./Card";
 
 import "./Card.skeleton.css";
 
@@ -11,6 +19,10 @@ import "./Card.skeleton.css";
  * A skeleton placeholder that matches the structure and dimensions of the Card
  * component. Follows the compound component pattern with all card parts
  * (Root, BadgeSlot, Title, Subtitle, KeyValuePair, Action) for flexible composition.
+ *
+ * Type composition: All skeleton props are composed from their corresponding
+ * Card component props using Omit to remove children where skeletons don't
+ * accept them. This ensures type consistency and prevents drift.
  *
  * Used during loading states to prevent layout shift. All skeleton parts display
  * as light grey rectangles matching the dimensions of their real counterparts.
@@ -30,8 +42,8 @@ import "./Card.skeleton.css";
  * ```
  */
 
-export interface CardSkeletonRootProps extends HTMLAttributes<HTMLElement> {
-  children: ReactNode;
+export interface CardSkeletonRootProps extends CardRootProps {
+  // Inherits all props from CardRootProps including children
 }
 
 function CardSkeletonRoot({ children, className = "", ...rest }: CardSkeletonRootProps) {
@@ -44,8 +56,8 @@ function CardSkeletonRoot({ children, className = "", ...rest }: CardSkeletonRoo
   );
 }
 
-export interface CardSkeletonBadgeSlotProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonBadgeSlotProps extends Omit<CardBadgeSlotProps, "children"> {
+  // Omits children since skeleton renders BadgeSkeleton internally
 }
 
 function CardSkeletonBadgeSlot({ className = "", ...rest }: CardSkeletonBadgeSlotProps) {
@@ -58,8 +70,8 @@ function CardSkeletonBadgeSlot({ className = "", ...rest }: CardSkeletonBadgeSlo
   );
 }
 
-export interface CardSkeletonTitleProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonTitleProps extends Omit<CardTitleProps, "children"> {
+  // Omits children since skeleton is a simple placeholder
 }
 
 function CardSkeletonTitle({ className = "", ...rest }: CardSkeletonTitleProps) {
@@ -68,8 +80,8 @@ function CardSkeletonTitle({ className = "", ...rest }: CardSkeletonTitleProps) 
   return <div className={titleClassName} {...rest} />;
 }
 
-export interface CardSkeletonSubtitleProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonSubtitleProps extends Omit<CardSubtitleProps, "children"> {
+  // Omits children since skeleton is a simple placeholder
 }
 
 function CardSkeletonSubtitle({ className = "", ...rest }: CardSkeletonSubtitleProps) {
@@ -78,8 +90,8 @@ function CardSkeletonSubtitle({ className = "", ...rest }: CardSkeletonSubtitleP
   return <div className={subtitleClassName} {...rest} />;
 }
 
-export interface CardSkeletonKeyValuePairRootProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+export interface CardSkeletonKeyValuePairRootProps extends CardKeyValuePairRootProps {
+  // Inherits all props from CardKeyValuePairRootProps including children
 }
 
 function CardSkeletonKeyValuePairRoot({
@@ -96,8 +108,9 @@ function CardSkeletonKeyValuePairRoot({
   );
 }
 
-export interface CardSkeletonKeyValuePairKeyProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonKeyValuePairKeyProps
+  extends Omit<CardKeyValuePairKeyProps, "children"> {
+  // Omits children since skeleton is a simple placeholder
 }
 
 function CardSkeletonKeyValuePairKey({
@@ -109,8 +122,9 @@ function CardSkeletonKeyValuePairKey({
   return <div className={keyClassName} {...rest} />;
 }
 
-export interface CardSkeletonKeyValuePairValueProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonKeyValuePairValueProps
+  extends Omit<CardKeyValuePairValueProps, "children" | "type"> {
+  // Omits children and type since skeleton is a simple placeholder
 }
 
 function CardSkeletonKeyValuePairValue({
@@ -128,8 +142,8 @@ const CardSkeletonKeyValuePair = Object.assign(CardSkeletonKeyValuePairRoot, {
   Value: CardSkeletonKeyValuePairValue,
 });
 
-export interface CardSkeletonActionProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+export interface CardSkeletonActionProps extends Omit<CardActionProps, "children"> {
+  // Omits children since skeleton renders ButtonSkeleton internally
 }
 
 function CardSkeletonAction({ className = "", ...rest }: CardSkeletonActionProps) {

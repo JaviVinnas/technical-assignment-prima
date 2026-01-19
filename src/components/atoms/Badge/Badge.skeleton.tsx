@@ -10,10 +10,13 @@ import "./Badge.skeleton.css";
  * grey rectangle with the same padding, border radius, and sizing as the
  * actual Badge component.
  *
+ * This component explicitly does not accept children as it is a simple
+ * placeholder element with no content.
+ *
  * @param props - BadgeSkeleton configuration
  * @param props.className - Additional CSS classes
  */
-export interface BadgeSkeletonProps extends HTMLAttributes<HTMLSpanElement> {
+export interface BadgeSkeletonProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
   className?: string;
 }
 

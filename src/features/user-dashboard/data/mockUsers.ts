@@ -6,8 +6,11 @@ import type { User } from "../types";
  * Array of 7 users with different permission levels for testing
  * search and filter functionality. Users have varied names to
  * support name-based searching.
+ *
+ * The array is marked readonly to prevent accidental mutations,
+ * ensuring the mock data remains consistent throughout the application.
  */
-export const mockUsers: User[] = [
+export const mockUsers: readonly User[] = [
   {
     name: "George Harris",
     role: "Software Engineer",

@@ -36,10 +36,10 @@ import { filterUsers } from "../utils/filterUsers";
 export function useUsersQuery(
   nameContains: string,
   selectedPermissions: UserPermission[],
-  options?: UseAsyncOptions,
+  options: UseAsyncOptions = {},
 ): UseAsyncResult<User[]> {
   const filterFn = useCallback(
-    (users: User[]) => filterUsers(users, nameContains, selectedPermissions),
+    (users: readonly User[]) => filterUsers(users, nameContains, selectedPermissions),
     [nameContains, selectedPermissions],
   );
 
