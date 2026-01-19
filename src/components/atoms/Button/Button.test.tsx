@@ -3,225 +3,180 @@ import userEvent from "@testing-library/user-event";
 
 import { Button } from "./Button";
 
+/**
+ * Test suite for Button component.
+ *
+ * Focuses on user interactions and accessibility.
+ * Tests verify what users can do with buttons, not implementation details.
+ */
 describe("Button", () => {
-  describe("Rendering", () => {
-    it("renders button with big variant", () => {
-      render(<Button variant="big">Click me</Button>);
-      const button = screen.getByRole("button", { name: /click me/i });
+  describe("Display", () => {
+    it("user sees button with label", () => {
+      render(<Button variant="big">Submit Form</Button>);
+
+      const button = screen.getByRole("button", { name: /submit form/i });
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass("button", "button--big");
     });
 
-    it("renders button with small variant", () => {
-      render(<Button variant="small">Click me</Button>);
-      const button = screen.getByRole("button", { name: /click me/i });
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveClass("button", "button--small");
-    });
-
-    it("renders button with children content", () => {
+    it("user sees button with complex content", () => {
       render(
-        <Button variant="big">
+        <Button variant="small">
           <span>Search</span>
         </Button>,
       );
+
       expect(screen.getByRole("button")).toHaveTextContent("Search");
-    });
-
-    it("renders button with different text lengths", () => {
-      const { rerender } = render(<Button variant="big">Short</Button>);
-      expect(screen.getByRole("button")).toHaveTextContent("Short");
-
-      rerender(<Button variant="big">This is a much longer button text that should adapt</Button>);
-      expect(screen.getByRole("button")).toHaveTextContent(
-        "This is a much longer button text that should adapt",
-      );
-    });
-
-    it("applies additional className when provided", () => {
-      render(
-        <Button variant="big" className="custom-class">
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole("button");
-      expect(button).toHaveClass("button", "button--big", "custom-class");
     });
   });
 
   describe("User Interactions", () => {
-    it("calls onClick when user clicks button", async () => {
+    it("user can click button to trigger action", async () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
         <Button variant="big" onClick={handleClick}>
-          Click me
+          Save Changes
         </Button>,
       );
 
-      const button = screen.getByRole("button", { name: /click me/i });
+      const button = screen.getByRole("button", { name: /save changes/i });
       await user.click(button);
 
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
-    it("does not call onClick when button is disabled", async () => {
+    it("disabled button prevents user from clicking", async () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
         <Button variant="big" onClick={handleClick} disabled>
-          Click me
+          Save Changes
         </Button>,
       );
 
-      const button = screen.getByRole("button", { name: /click me/i });
+      const button = screen.getByRole("button", { name: /save changes/i });
       await user.click(button);
 
       expect(handleClick).not.toHaveBeenCalled();
     });
 
-    it("can be activated with keyboard", async () => {
+    it("user can activate button with keyboard Enter key", async () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       render(
         <Button variant="big" onClick={handleClick}>
-          Click me
+          Submit
         </Button>,
       );
 
-      const button = screen.getByRole("button", { name: /click me/i });
+      const button = screen.getByRole("button", { name: /submit/i });
       button.focus();
       await user.keyboard("{Enter}");
 
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
+
+    it("user can activate button with keyboard Space key", async () => {
+      const user = userEvent.setup();
+      const handleClick = vi.fn();
+      render(
+        <Button variant="small" onClick={handleClick}>
+          Delete
+        </Button>,
+      );
+
+      const button = screen.getByRole("button", { name: /delete/i });
+      button.focus();
+      await user.keyboard(" ");
+
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("Button States", () => {
+    it("user sees enabled button by default", () => {
+      render(<Button variant="big">Continue</Button>);
+
+      expect(screen.getByRole("button")).not.toBeDisabled();
+    });
+
+    it("user sees disabled button when action is not available", () => {
+      render(
+        <Button variant="big" disabled>
+          Save Changes
+        </Button>,
+      );
+
+      const button = screen.getByRole("button");
+      expect(button).toBeDisabled();
+    });
+
+    it("button type is set for form submission", () => {
+      render(
+        <Button variant="big" type="submit">
+          Submit Form
+        </Button>,
+      );
+
+      expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
+    });
+
+    it("button type is button by default to prevent form submission", () => {
+      render(<Button variant="big">Click me</Button>);
+
+      expect(screen.getByRole("button")).toHaveAttribute("type", "button");
+    });
   });
 
   describe("Accessibility", () => {
-    it("has correct button role", () => {
-      render(<Button variant="big">Button</Button>);
+    it("button has correct ARIA role for screen readers", () => {
+      render(<Button variant="big">Action</Button>);
+
       expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
-    it("can be focused with keyboard", () => {
-      render(<Button variant="big">Button</Button>);
+    it("user can focus button with keyboard", () => {
+      render(<Button variant="small">Focus me</Button>);
+
       const button = screen.getByRole("button");
       button.focus();
       expect(button).toHaveFocus();
     });
 
-    it("has disabled attribute when disabled", () => {
+    it("disabled state is communicated to screen readers", () => {
       render(
         <Button variant="big" disabled>
-          Button
+          Disabled Action
         </Button>,
       );
+
       expect(screen.getByRole("button")).toBeDisabled();
     });
 
-    it("supports aria-label for screen readers", () => {
+    it("button supports aria-label for descriptive screen reader text", () => {
       render(
-        <Button variant="big" aria-label="Search for products">
+        <Button variant="small" aria-label="Search for products in the catalogue">
           Search
         </Button>,
       );
-      expect(screen.getByRole("button", { name: /search for products/i })).toBeInTheDocument();
+
+      expect(
+        screen.getByRole("button", { name: /search for products in the catalogue/i }),
+      ).toBeInTheDocument();
     });
 
-    it("supports aria-describedby", () => {
+    it("button supports aria-describedby for additional context", () => {
       render(
         <div>
           <Button variant="big" aria-describedby="button-help">
             Submit
           </Button>
-          <span id="button-help">This button submits the form</span>
+          <span id="button-help">This will save your changes permanently</span>
         </div>,
       );
+
       const button = screen.getByRole("button");
       expect(button).toHaveAttribute("aria-describedby", "button-help");
-    });
-  });
-
-  describe("Button States", () => {
-    it("renders enabled button by default", () => {
-      render(<Button variant="big">Button</Button>);
-      expect(screen.getByRole("button")).not.toBeDisabled();
-    });
-
-    it("renders disabled button when disabled prop is true", () => {
-      render(
-        <Button variant="big" disabled>
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole("button");
-      expect(button).toBeDisabled();
-    });
-
-    it("has correct type attribute", () => {
-      const { rerender } = render(
-        <Button variant="big" type="button">
-          Button
-        </Button>,
-      );
-      expect(screen.getByRole("button")).toHaveAttribute("type", "button");
-
-      rerender(
-        <Button variant="big" type="submit">
-          Submit
-        </Button>,
-      );
-      expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
-
-      rerender(
-        <Button variant="big" type="reset">
-          Reset
-        </Button>,
-      );
-      expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
-    });
-
-    it("defaults to type='button' when type is not specified", () => {
-      render(<Button variant="big">Button</Button>);
-      expect(screen.getByRole("button")).toHaveAttribute("type", "button");
-    });
-  });
-
-  describe("Design Tokens", () => {
-    it("applies big variant styles with correct CSS classes", () => {
-      render(<Button variant="big">Button</Button>);
-      const button = screen.getByRole("button");
-      expect(button).toHaveClass("button--big");
-    });
-
-    it("applies small variant styles with correct CSS classes", () => {
-      render(<Button variant="small">Button</Button>);
-      const button = screen.getByRole("button");
-      expect(button).toHaveClass("button--small");
-    });
-  });
-
-  describe("HTML Attributes", () => {
-    it("passes through additional HTML button attributes", () => {
-      render(
-        <Button variant="big" data-testid="custom-button" title="Tooltip">
-          Button
-        </Button>,
-      );
-      const button = screen.getByRole("button");
-      expect(button).toHaveAttribute("data-testid", "custom-button");
-      expect(button).toHaveAttribute("title", "Tooltip");
-    });
-
-    it("supports form attributes", () => {
-      render(
-        <Button variant="big" form="my-form" formAction="/submit">
-          Submit
-        </Button>,
-      );
-      const button = screen.getByRole("button");
-      expect(button).toHaveAttribute("form", "my-form");
-      expect(button).toHaveAttribute("formAction", "/submit");
     });
   });
 });

@@ -35,7 +35,8 @@ import "./UserSearchBox.css";
  * @param props.placeholder - Placeholder text for the input (defaults to SearchBox default)
  * @param props.className - Additional CSS classes applied to the container
  */
-export interface UserSearchBoxProps extends Omit<SearchBoxProps, "value" | "onChange" | "onSearch"> {
+export interface UserSearchBoxProps
+  extends Omit<SearchBoxProps, "value" | "onChange" | "onSearch"> {
   value: string;
   onChange: (value: string) => void;
 }
