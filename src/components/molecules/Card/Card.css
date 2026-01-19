@@ -28,7 +28,7 @@
   font-size: var(--typography-text-l-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--typography-text-l-line-height);
-  letter-spacing: var(--letter-spacing-subtle);
+  letter-spacing: var(--letter-spacing-s);
   color: var(--colour-text-secondary);
   margin-top: calc(var(--spacing-sm) * -1);
 }

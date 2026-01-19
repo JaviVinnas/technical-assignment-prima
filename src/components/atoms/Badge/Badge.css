@@ -10,7 +10,7 @@
   font-size: var(--typography-text-s-size);
   font-weight: var(--font-weight-medium);
   line-height: var(--typography-badge-line-height);
-  letter-spacing: var(--letter-spacing-uppercase);
+  letter-spacing: var(--letter-spacing-m);
   text-transform: uppercase;
 }
 

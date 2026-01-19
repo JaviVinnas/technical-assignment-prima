@@ -163,8 +163,8 @@ ol {
   --line-height-normal: 1.5;
 
   /* Typography - Letter Spacing Tokens */
-  --letter-spacing-uppercase: 0.1em;
-  --letter-spacing-subtle: 0.02em; /* 2% */
+  --letter-spacing-s: 0.02em;
+  --letter-spacing-m: 0.1em;
 
   /* Opacity Tokens */
   --opacity-full: 1;

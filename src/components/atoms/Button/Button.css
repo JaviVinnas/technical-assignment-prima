@@ -9,6 +9,7 @@
   color: var(--colour-background);
   font-family: var(--font-family-base);
   font-size: inherit;
+  letter-spacing: var(--letter-spacing-m);
   cursor: pointer;
   transition:
     background-color var(--transition-base, 200ms) var(--transition-timing),
