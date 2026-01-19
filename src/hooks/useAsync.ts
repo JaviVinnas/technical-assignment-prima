@@ -206,7 +206,7 @@ export function useAsync<T>(
   const optionsRef = useRef({ delayRange, errorProbability });
   optionsRef.current = { delayRange, errorProbability };
 
-  const [refetchTrigger, setRefetchTrigger] = useState(0);
+  const [refetchTrigger, setRefetchTrigger] = useState(true);
   const [state, setState] = useState<UseAsyncInternalState<T>>({
     data: undefined,
     isLoading: true,
@@ -215,10 +215,10 @@ export function useAsync<T>(
   });
 
   const retry = useCallback(() => {
-    setRefetchTrigger((prev) => prev + 1);
+    setRefetchTrigger((prev) => !prev);
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: refetchTrigger is required to enable retry functionality via state increment
+  // biome-ignore lint/correctness/useExhaustiveDependencies: refetchTrigger is required to enable retry functionality via state toggle
   useEffect(() => {
     // Read options from ref to get current values without causing effect re-runs
     const [minDelay, maxDelay] = optionsRef.current.delayRange;
