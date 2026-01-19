@@ -1,6 +1,5 @@
 import { Button } from "../../../../../components/atoms/Button";
 import { Card } from "../../../../../components/molecules/Card";
-import { showNotImplementedAlert } from "../../../../../utils";
 
 import type { User } from "../../../types";
 import { UserPermissionBadge } from "../../atoms/UserPermissionBadge";
@@ -12,14 +11,24 @@ import { UserPermissionBadge } from "../../atoms/UserPermissionBadge";
  * and contact information. Contact information is rendered as a clickable
  * link for email interaction.
  *
+ * The component accepts an optional onViewDetails callback to handle the
+ * "View details" button click. This design allows the component to be tested
+ * in isolation without hard-coded dependencies on browser APIs.
+ *
  * @param props - UserCard configuration
  * @param props.user - User data to display (required)
+ * @param props.onViewDetails - Callback invoked when "View details" button is clicked (optional)
  */
 export interface UserCardProps {
   user: User;
+  onViewDetails?: () => void;
 }
 
-export function UserCard({ user }: UserCardProps) {
+export function UserCard({ user, onViewDetails }: UserCardProps) {
+  const handleViewDetails = () => {
+    onViewDetails?.();
+  };
+
   return (
     <Card.Root>
       <Card.BadgeSlot>
@@ -36,7 +45,7 @@ export function UserCard({ user }: UserCardProps) {
         <Card.KeyValuePair.Value type="email">{user.contactInfo}</Card.KeyValuePair.Value>
       </Card.KeyValuePair.Root>
       <Card.Action>
-        <Button variant="small" onClick={showNotImplementedAlert}>
+        <Button variant="small" onClick={handleViewDetails}>
           View details
         </Button>
       </Card.Action>

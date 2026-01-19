@@ -17,7 +17,7 @@ import { filterUsers } from "../utils/filterUsers";
  * data after errors.
  *
  * @param nameContains - Search query string to match against user names (case-insensitive)
- * @param selectedPermissions - Array of permission levels to filter by (empty array shows all)
+ * @param selectedPermissions - Array of permission levels to filter by (readonly, empty array shows all)
  * @param options - Optional async configuration for delay range and error probability
  * @returns Async result containing filtered users array and loading/error states
  *
@@ -35,7 +35,7 @@ import { filterUsers } from "../utils/filterUsers";
  */
 export function useUsersQuery(
   nameContains: string,
-  selectedPermissions: UserPermission[],
+  selectedPermissions: readonly UserPermission[],
   options: UseAsyncOptions = {},
 ): UseAsyncResult<User[]> {
   const filterFn = useCallback(

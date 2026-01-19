@@ -1,2 +1,2 @@
-export type { UserSearchBoxProps } from "./UserSearchBox";
-export { UserSearchBox } from "./UserSearchBox";
+export type { ConnectedUserSearchBoxProps, UserSearchBoxProps } from "./UserSearchBox";
+export { ConnectedUserSearchBox, UserSearchBox } from "./UserSearchBox";

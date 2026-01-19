@@ -1,2 +1,2 @@
-export type { FiltersRowProps } from "./FiltersRow";
+export type { FilterableValue, FiltersRowProps, RenderOptionFn } from "./FiltersRow";
 export { FiltersRow } from "./FiltersRow";

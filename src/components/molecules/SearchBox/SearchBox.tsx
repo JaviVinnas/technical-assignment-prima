@@ -12,6 +12,23 @@ import { Input } from "../../atoms/Input";
 import "./SearchBox.css";
 
 /**
+ * Handler function type for search input change events.
+ *
+ * Called when the search input value changes, providing the change event.
+ * Use this type for components that need to handle search input changes.
+ */
+export type SearchBoxChangeHandler = (event: ChangeEvent<HTMLInputElement>) => void;
+
+/**
+ * Handler function type for search submission events.
+ *
+ * Called when search is triggered (button click, Enter key, or form submit),
+ * providing the current search value. Use this type for components that need
+ * to handle search queries.
+ */
+export type SearchBoxSearchHandler = (value: string) => void;
+
+/**
  * SearchBox component combining Input and Button.
  *
  * A molecule component that combines an Input field with an adjacent Search button.
@@ -36,8 +53,10 @@ import "./SearchBox.css";
  * @param props.className - Additional CSS classes applied to the container
  * @param props.id - Input element ID (also used for label association if label is provided)
  */
-export interface SearchBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onSearch"> {
-  onSearch?: (value: string) => void;
+export interface SearchBoxProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onSearch" | "onChange"> {
+  onSearch?: SearchBoxSearchHandler;
+  onChange?: SearchBoxChangeHandler;
   autoSearchOnClear?: boolean;
   formProps?: Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "className">;
 }

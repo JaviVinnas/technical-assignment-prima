@@ -1,3 +1,5 @@
+import type { HTMLAttributes } from "react";
+
 import { BadgeSkeleton } from "../../atoms/Badge/Badge.skeleton";
 import { ButtonSkeleton } from "../../atoms/Button/Button.skeleton";
 import type {
@@ -5,7 +7,6 @@ import type {
   CardBadgeSlotProps,
   CardKeyValuePairKeyProps,
   CardKeyValuePairRootProps,
-  CardKeyValuePairValueProps,
   CardRootProps,
   CardSubtitleProps,
   CardTitleProps,
@@ -123,8 +124,9 @@ function CardSkeletonKeyValuePairKey({
 }
 
 export interface CardSkeletonKeyValuePairValueProps
-  extends Omit<CardKeyValuePairValueProps, "children" | "type"> {
-  // Omits children and type since skeleton is a simple placeholder
+  extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+  // Uses HTMLDivElement attributes directly since skeleton renders a div placeholder
+  // regardless of the actual card value type (text or email)
 }
 
 function CardSkeletonKeyValuePairValue({

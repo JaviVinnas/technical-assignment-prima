@@ -1,57 +1,74 @@
 import { CardGrid } from "../../../../../components/organisms/CardGrid";
 import { EmptyState } from "../../../../../components/organisms/EmptyState";
 import { ErrorState } from "../../../../../components/organisms/ErrorState";
+import { showNotImplementedAlert } from "../../../../../utils";
 import { useUserDashboardContext } from "../../../context";
 import { useUsersQuery } from "../../../hooks/useUsersQuery";
+import type { User } from "../../../types";
 import { UserCard } from "../../molecules/UserCard";
 import { UserCardGridSkeleton } from "./UserCardGrid.skeleton";
 
 import "./UserCardGrid.css";
 
 /**
- * UserCardGrid component for displaying filtered user cards in a grid layout.
+ * UserCardGrid presentational component for displaying user cards in a grid layout.
  *
- * Displays user cards in a responsive grid, automatically filtered based on
- * the current search query and selected permission filters. Handles loading,
- * error, and empty states with appropriate UI feedback.
+ * A pure presentational component that renders user cards based on provided data
+ * and state. Handles loading, error, and empty states with appropriate UI feedback.
+ * This component is easily testable in isolation as it accepts all data via props.
  *
  * Features:
- * - Real-time filtering: updates automatically as filters change
- * - Async data loading: shows skeleton during data fetch
- * - Error handling: displays error state with retry capability
- * - Automatic empty state: displays message when no results match
- * - Integrated state management: synchronised with dashboard filters
+ * - Responsive grid layout for user cards
+ * - Loading state with skeleton placeholders
+ * - Error state with retry capability
+ * - Empty state for no results
+ * - Flexible action handler injection
+ *
+ * For context-integrated usage, use UserCardGridContainer instead.
  *
  * @param props - UserCardGrid configuration
+ * @param props.users - Array of users to display in the grid
+ * @param props.isLoading - Whether data is currently loading
+ * @param props.isError - Whether an error occurred during data fetch
+ * @param props.error - Error object when isError is true
+ * @param props.onRetry - Callback invoked when user clicks retry button
+ * @param props.onViewDetails - Callback invoked when user clicks "View details" on a card
  * @param props.className - Additional CSS classes applied to the container
  */
 export interface UserCardGridProps {
+  users: User[];
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  onRetry: () => void;
+  onViewDetails?: () => void;
   className?: string;
 }
 
-export function UserCardGrid({ className = "" }: UserCardGridProps) {
-  const { searchQuery, selectedPermissions } = useUserDashboardContext();
-
-  const asyncResult = useUsersQuery(searchQuery, selectedPermissions, {
-    delayRange: [0, 500],
-    errorProbability: 0.1,
-  });
-
+export function UserCardGrid({
+  users,
+  isLoading,
+  isError,
+  error: _error,
+  onRetry,
+  onViewDetails,
+  className = "",
+}: UserCardGridProps) {
   const userCardGridClassName = `user-card-grid ${className}`.trim();
 
-  if (asyncResult.isLoading) {
+  if (isLoading) {
     return <UserCardGridSkeleton count={6} className={className} />;
   }
 
-  if (asyncResult.isError) {
+  if (isError) {
     return (
       <section className={userCardGridClassName}>
-        <ErrorState message="Failed to load users." onRetry={asyncResult.retry} />
+        <ErrorState message="Failed to load users." onRetry={onRetry} />
       </section>
     );
   }
 
-  if (asyncResult.data.length === 0) {
+  if (users.length === 0) {
     return (
       <section className={userCardGridClassName}>
         <EmptyState message="No users found matching your criteria." />
@@ -62,10 +79,48 @@ export function UserCardGrid({ className = "" }: UserCardGridProps) {
   return (
     <section className={userCardGridClassName}>
       <CardGrid>
-        {asyncResult.data.map((user) => (
-          <UserCard key={user.contactInfo} user={user} />
+        {users.map((user) => (
+          <UserCard key={user.contactInfo} user={user} onViewDetails={onViewDetails} />
         ))}
       </CardGrid>
     </section>
+  );
+}
+
+/**
+ * Container component that connects UserCardGrid to the user dashboard context.
+ *
+ * This container handles the integration with UserDashboardContext and data fetching,
+ * managing the user query lifecycle including loading, error, and success states.
+ * The presentational UserCardGrid component remains testable in isolation.
+ *
+ * Use this component in the user dashboard page where context integration is needed.
+ * Use the base UserCardGrid component directly for testing or reuse in other contexts.
+ *
+ * @param props - UserCardGridContainer configuration
+ * @param props.className - Additional CSS classes applied to the container
+ */
+export interface UserCardGridContainerProps {
+  className?: string;
+}
+
+export function UserCardGridContainer({ className }: UserCardGridContainerProps) {
+  const { searchQuery, selectedPermissions } = useUserDashboardContext();
+
+  const asyncResult = useUsersQuery(searchQuery, selectedPermissions, {
+    delayRange: [0, 500],
+    errorProbability: 0.1,
+  });
+
+  return (
+    <UserCardGrid
+      users={asyncResult.isSuccess ? asyncResult.data : []}
+      isLoading={asyncResult.isLoading}
+      isError={asyncResult.isError}
+      error={asyncResult.isError ? asyncResult.error : undefined}
+      onRetry={asyncResult.retry}
+      onViewDetails={showNotImplementedAlert}
+      className={className}
+    />
   );
 }

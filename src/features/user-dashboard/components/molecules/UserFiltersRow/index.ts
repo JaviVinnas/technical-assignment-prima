@@ -1,2 +1,2 @@
-export type { UserFiltersRowProps } from "./UserFiltersRow";
-export { UserFiltersRow } from "./UserFiltersRow";
+export type { UserFiltersRowContainerProps, UserFiltersRowProps } from "./UserFiltersRow";
+export { UserFiltersRow, UserFiltersRowContainer } from "./UserFiltersRow";

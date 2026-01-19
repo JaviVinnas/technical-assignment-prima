@@ -7,15 +7,61 @@ import type { UserDashboardState, UserPermission } from "../types";
  * Context value type for user dashboard state.
  *
  * Provides all state values and setter functions for managing the user
- * dashboard, including search query and permission filters.
+ * dashboard, including search query and permission filters. The selectedPermissions
+ * array is readonly to prevent accidental mutations.
+ *
+ * This type is exported to enable better testability and type composition.
+ * Components can use utility types to extract only the parts of the context
+ * they need.
  */
-interface UserDashboardContextValue {
+export interface UserDashboardContextValue {
   searchQuery: string;
   setSearchQuery: (searchQuery: string) => void;
-  selectedPermissions: UserPermission[];
+  selectedPermissions: readonly UserPermission[];
   setSelectedPermissions: (selectedPermissions: UserPermission[]) => void;
   togglePermission: (permission: UserPermission) => void;
 }
+
+/**
+ * Type representing the state portion of the dashboard context.
+ *
+ * Extracts only the state properties (data) without the setter functions.
+ * Useful for components that only read state without modifying it.
+ *
+ * @example
+ * ```tsx
+ * function DisplayComponent() {
+ *   const { searchQuery, selectedPermissions }: UserDashboardStateOnly =
+ *     useUserDashboardContext();
+ *   // Component can only access state, not setters
+ * }
+ * ```
+ */
+export type UserDashboardStateOnly = Pick<
+  UserDashboardContextValue,
+  "searchQuery" | "selectedPermissions"
+>;
+
+/**
+ * Type representing the actions portion of the dashboard context.
+ *
+ * Extracts only the action functions (setters) without the state values.
+ * Useful for components that only modify state without reading it, or
+ * for testing action handlers in isolation.
+ *
+ * @example
+ * ```tsx
+ * function ControlComponent() {
+ *   const { setSearchQuery, togglePermission }: UserDashboardActions =
+ *     useUserDashboardContext();
+ *   // Component can only access actions, not state
+ * }
+ * ```
+ */
+export type UserDashboardActions = Pick<
+  UserDashboardContextValue,
+  "setSearchQuery" | "setSelectedPermissions" | "togglePermission"
+>;
 
 /**
  * React context for user dashboard state management.
@@ -33,6 +79,14 @@ const DEFAULT_STATE: UserDashboardState = {
   searchQuery: "",
   selectedPermissions: [],
 };
+
+/**
+ * Type for partial state updates.
+ *
+ * Allows updating one or more state properties without requiring all properties.
+ * Used for flexible state modifications where only specific fields need to change.
+ */
+export type UserDashboardStateUpdate = Partial<UserDashboardState>;
 
 /**
  * Internal hook for managing user dashboard state with localStorage persistence.

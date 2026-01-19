@@ -8,12 +8,12 @@ import type { User, UserPermission } from "../types";
  * 2. Permission filter: matches if user permission is in selected permissions array
  *    (OR logic - if no permissions selected, shows all users)
  *
- * Accepts both mutable and readonly arrays for flexibility with immutable
- * data sources.
+ * Accepts readonly arrays to ensure immutability and prevent accidental
+ * mutations of the source data.
  *
- * @param users - Array of users to filter (can be readonly)
+ * @param users - Array of users to filter (readonly)
  * @param searchQuery - Search query string to match against user names
- * @param selectedPermissions - Array of selected permission levels for filtering
+ * @param selectedPermissions - Array of selected permission levels for filtering (readonly)
  * @returns Filtered array of users matching both criteria
  *
  * @example
@@ -25,7 +25,7 @@ import type { User, UserPermission } from "../types";
 export function filterUsers(
   users: readonly User[],
   searchQuery: string,
-  selectedPermissions: UserPermission[],
+  selectedPermissions: readonly UserPermission[],
 ): User[] {
   return users.filter((user) => {
     // Text search: match if name contains search query (case-insensitive)

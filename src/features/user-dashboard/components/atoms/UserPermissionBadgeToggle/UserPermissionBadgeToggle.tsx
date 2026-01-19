@@ -28,18 +28,31 @@ export interface UserPermissionBadgeToggleProps {
 type BadgeToggleVariant = BadgeToggleProps["variant"];
 
 /**
+ * Type alias for permission to badge toggle variant mapping.
+ *
+ * Makes the mapping type more semantic and reusable. Using Record ensures
+ * all permissions are mapped and TypeScript will error if any are missing.
+ */
+type PermissionBadgeToggleMap = Record<UserPermission, BadgeToggleVariant>;
+
+/**
  * Maps UserPermission values to BadgeToggle variant values.
  *
  * Uses generic accent variants to keep BadgeToggle component domain-agnostic.
+ * The mapping ensures type safety at compile time while documenting the
+ * relationship between permissions and their visual representation.
+ *
+ * TypeScript ensures exhaustive mapping - compilation fails if any
+ * permission is missing from the map.
  */
-const PERMISSION_TO_BADGE_VARIANT = {
+const PERMISSION_TO_BADGE_VARIANT: PermissionBadgeToggleMap = {
   admin: "accent-1",
   editor: "accent-2",
   viewer: "accent-3",
   guest: "accent-4",
   owner: "default",
   inactive: "default",
-} as const satisfies Record<UserPermission, BadgeToggleVariant>;
+} as const satisfies PermissionBadgeToggleMap;
 
 export function UserPermissionBadgeToggle({
   permission,

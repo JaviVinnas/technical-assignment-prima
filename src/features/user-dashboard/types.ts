@@ -30,11 +30,12 @@ export const UserPermissionValues = {
  * Structure for persisted user dashboard state in localStorage.
  *
  * Represents the state that is saved to localStorage for the user dashboard,
- * including search query and selected permission filters.
+ * including search query and selected permission filters. The selectedPermissions
+ * array is readonly to prevent accidental mutations.
  */
 export interface UserDashboardState {
   searchQuery: string;
-  selectedPermissions: UserPermission[];
+  selectedPermissions: readonly UserPermission[];
 }
 
 /**

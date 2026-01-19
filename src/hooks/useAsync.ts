@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Configuration options for the useAsync hook.
@@ -77,30 +77,23 @@ export interface UseAsyncInput<T> {
 }
 
 /**
+ * Utility type to remove the retry callback from async result types.
+ *
+ * Used to compose internal state types from exported result types,
+ * maintaining a single source of truth for state shapes.
+ */
+type WithoutRetry<T> = Omit<T, "retry">;
+
+/**
  * Internal state type for useAsync hook without retry callback.
  *
- * This type is used internally before the retry callback is added.
+ * Composed from exported result types using Omit to avoid duplication.
+ * Changes to exported types automatically flow to internal state types.
  */
 type UseAsyncInternalState<T> =
-  | {
-      data: undefined;
-      isLoading: true;
-      isError: false;
-      isSuccess: false;
-    }
-  | {
-      data: undefined;
-      isLoading: false;
-      isError: true;
-      isSuccess: false;
-      error: Error;
-    }
-  | {
-      data: T;
-      isLoading: false;
-      isError: false;
-      isSuccess: true;
-    };
+  | WithoutRetry<UseAsyncLoadingResult>
+  | WithoutRetry<UseAsyncErrorResult>
+  | WithoutRetry<UseAsyncSuccessResult<T>>;
 
 /**
  * Type guard to check if async result is in loading state.
@@ -208,6 +201,11 @@ export function useAsync<T>(
   const { data } = input;
   const { delayRange = [200, 800], errorProbability = 0.1 } = options;
 
+  // Store options in ref to avoid triggering effect on every render
+  // Options are configuration and shouldn't cause refetch when changed
+  const optionsRef = useRef({ delayRange, errorProbability });
+  optionsRef.current = { delayRange, errorProbability };
+
   const [refetchTrigger, setRefetchTrigger] = useState(0);
   const [state, setState] = useState<UseAsyncInternalState<T>>({
     data: undefined,
@@ -220,12 +218,13 @@ export function useAsync<T>(
     setRefetchTrigger((prev) => prev + 1);
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: refetchTrigger is intentionally a dependency to enable retry functionality, delayRange and errorProbability are configuration options that should not trigger refetch
+  // biome-ignore lint/correctness/useExhaustiveDependencies: refetchTrigger is required to enable retry functionality via state increment
   useEffect(() => {
-    // Destructure delayRange at the start to avoid issues with dependency array
-    const [minDelay, maxDelay] = delayRange;
+    // Read options from ref to get current values without causing effect re-runs
+    const [minDelay, maxDelay] = optionsRef.current.delayRange;
+    const { errorProbability: currentErrorProbability } = optionsRef.current;
 
-    // Reset to loading state when data or options change
+    // Reset to loading state when data changes or retry is triggered
     setState({
       data: undefined,
       isLoading: true,
@@ -237,7 +236,7 @@ export function useAsync<T>(
     const delay = Math.random() * (maxDelay - minDelay) + minDelay;
 
     // Determine if this request should error
-    const shouldError = Math.random() < errorProbability;
+    const shouldError = Math.random() < currentErrorProbability;
 
     const timeoutId = setTimeout(() => {
       if (shouldError) {

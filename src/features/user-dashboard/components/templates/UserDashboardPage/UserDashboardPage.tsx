@@ -1,8 +1,8 @@
 import { HorizontalSeparator } from "../../../../../components/atoms";
 import { UserDashboardProvider } from "../../../context";
-import { UserFiltersRow } from "../../molecules/UserFiltersRow";
-import { UserSearchBox } from "../../molecules/UserSearchBox";
-import { UserCardGrid } from "../../organisms/UserCardGrid";
+import { UserFiltersRowContainer } from "../../molecules/UserFiltersRow";
+import { ConnectedUserSearchBox } from "../../molecules/UserSearchBox";
+import { UserCardGridContainer } from "../../organisms/UserCardGrid";
 
 import "./UserDashboardPage.css";
 
@@ -44,11 +44,11 @@ export function UserDashboardPage() {
 
         <div className="user-dashboard__sticky-controls">
           <section className="user-dashboard__search-section">
-            <UserSearchBox id="search-input" />
+            <ConnectedUserSearchBox id="search-input" />
           </section>
 
           <section className="user-dashboard__filters-section">
-            <UserFiltersRow />
+            <UserFiltersRowContainer />
           </section>
 
           <div className="user-dashboard__separator-wrapper">
@@ -57,7 +57,7 @@ export function UserDashboardPage() {
         </div>
 
         <section className="user-dashboard__results-section">
-          <UserCardGrid />
+          <UserCardGridContainer />
         </section>
       </main>
     </UserDashboardProvider>

@@ -1,5 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
+import type { CSSPropertiesWithCustom } from "../../../types";
+
 import "./CardGrid.css";
 
 /**
@@ -33,10 +35,7 @@ export function CardGrid({
   ...rest
 }: CardGridProps) {
   const cardGridClassName = `card-grid ${className}`.trim();
-  const cardGridStyle: React.CSSProperties & {
-    "--card-grid-min-column-width": string;
-    "--card-grid-gap": string;
-  } = {
+  const cardGridStyle: CSSPropertiesWithCustom = {
     ...style,
     "--card-grid-min-column-width": minColumnWidth,
     "--card-grid-gap": gap,

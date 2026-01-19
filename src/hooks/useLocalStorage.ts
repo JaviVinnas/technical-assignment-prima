@@ -33,6 +33,27 @@ export interface LocalStorageValueMap {
 export type LocalStorageKey = keyof typeof LocalStorageKeys;
 
 /**
+ * Type representing either a value or an updater function.
+ *
+ * Used for setState-like APIs that accept either a new value directly
+ * or a function that computes the new value from the previous value.
+ */
+type ValueOrUpdater<T> = T | ((prevValue: T) => T);
+
+/**
+ * Type guard to check if a value is an updater function.
+ *
+ * This type guard safely narrows the ValueOrUpdater union type to determine
+ * if the value is a function updater without using unsafe type assertions.
+ *
+ * @param value - Value that could be either T or an updater function
+ * @returns True if value is an updater function, false otherwise
+ */
+function isUpdaterFunction<T>(value: ValueOrUpdater<T>): value is (prevValue: T) => T {
+  return typeof value === "function";
+}
+
+/**
  * Factory function that creates a type-safe localStorage hook.
  *
  * Returns a React hook that manages state in localStorage with full type safety.
@@ -58,7 +79,7 @@ function buildLocalStorageHook<TMap extends LocalStorageValueMap>() {
   return function useLocalStorage<K extends keyof TMap>(
     key: K,
     defaultValue: TMap[K],
-  ): [TMap[K], (value: TMap[K] | ((prevValue: TMap[K]) => TMap[K])) => void] {
+  ): [TMap[K], (value: ValueOrUpdater<TMap[K]>) => void] {
     // Cache the last snapshot value and serialized string to ensure stable references
     // This prevents infinite loops when getSnapshot returns new object references
     const snapshotCacheRef = useRef<{
@@ -161,12 +182,9 @@ function buildLocalStorageHook<TMap extends LocalStorageValueMap>() {
 
     const storedValue = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-    const setValue = (value: TMap[K] | ((prevValue: TMap[K]) => TMap[K])) => {
+    const setValue = (value: ValueOrUpdater<TMap[K]>) => {
       try {
-        const newValue =
-          typeof value === "function"
-            ? (value as (prevValue: TMap[K]) => TMap[K])(getSnapshot())
-            : value;
+        const newValue = isUpdaterFunction(value) ? value(getSnapshot()) : value;
         localStorage.setItem(key as string, JSON.stringify(newValue));
         // Dispatch custom event for same-tab synchronization
         window.dispatchEvent(new CustomEvent("localStorageChange", { detail: key }));

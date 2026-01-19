@@ -123,27 +123,52 @@ function CardKeyValuePairKey({ children, className = "", ...rest }: CardKeyValue
   );
 }
 
-export interface CardKeyValuePairValueProps extends HTMLAttributes<HTMLElement> {
+/**
+ * Props for CardKeyValuePairValue when rendering as text span.
+ *
+ * Accepts any ReactNode as children and spreads remaining HTML span attributes.
+ */
+export interface CardKeyValuePairValueTextProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
   children: ReactNode;
-  type?: "text" | "email";
+  type?: "text";
 }
 
-function CardKeyValuePairValue({
-  children,
-  type = "text",
-  className = "",
-  ...rest
-}: CardKeyValuePairValueProps) {
-  const valueClassName = `card__value ${className}`.trim();
+/**
+ * Props for CardKeyValuePairValue when rendering as email link.
+ *
+ * Enforces string children (email address) and spreads remaining HTML anchor attributes.
+ */
+export interface CardKeyValuePairValueEmailProps
+  extends Omit<HTMLAttributes<HTMLAnchorElement>, "children"> {
+  children: string;
+  type: "email";
+}
 
-  if (type === "email") {
-    const emailValue = typeof children === "string" ? children : "";
+/**
+ * Discriminated union for CardKeyValuePairValue props.
+ *
+ * Type-safe variant props that enforce string children when type is "email".
+ * This prevents runtime errors by catching type mismatches at compile time.
+ */
+export type CardKeyValuePairValueProps =
+  | CardKeyValuePairValueTextProps
+  | CardKeyValuePairValueEmailProps;
+
+function CardKeyValuePairValue(props: CardKeyValuePairValueProps) {
+  if (props.type === "email") {
+    const { children, className = "", ...rest } = props;
+    const valueClassName = `card__value ${className}`.trim();
+
     return (
-      <ExternalLink href={emailValue} variant="email" className={valueClassName} {...rest}>
+      <ExternalLink href={children} variant="email" className={valueClassName} {...rest}>
         {children}
       </ExternalLink>
     );
   }
+
+  const { children, className = "", ...rest } = props;
+  const valueClassName = `card__value ${className}`.trim();
 
   return (
     <span className={valueClassName} {...rest}>
