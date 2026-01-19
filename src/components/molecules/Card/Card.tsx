@@ -44,9 +44,14 @@ import "./Card.css";
  * ```
  */
 
-export interface CardRootProps extends HTMLAttributes<HTMLElement> {
+/**
+ * Generic utility type for card element props with children.
+ */
+type CardElementProps<T extends HTMLElement> = HTMLAttributes<T> & {
   children: ReactNode;
-}
+};
+
+export type CardRootProps = CardElementProps<HTMLElement>;
 
 function CardRoot({ children, className = "", ...rest }: CardRootProps) {
   const rootClassName = `card ${className}`.trim();
@@ -58,9 +63,7 @@ function CardRoot({ children, className = "", ...rest }: CardRootProps) {
   );
 }
 
-export interface CardBadgeSlotProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
+export type CardBadgeSlotProps = CardElementProps<HTMLDivElement>;
 
 function CardBadgeSlot({ children, className = "", ...rest }: CardBadgeSlotProps) {
   const badgeSlotClassName = `card__badge-slot ${className}`.trim();
@@ -72,9 +75,7 @@ function CardBadgeSlot({ children, className = "", ...rest }: CardBadgeSlotProps
   );
 }
 
-export interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
-  children: ReactNode;
-}
+export type CardTitleProps = CardElementProps<HTMLHeadingElement>;
 
 function CardTitle({ children, className = "", ...rest }: CardTitleProps) {
   const titleClassName = `card__title ${className}`.trim();
@@ -86,9 +87,7 @@ function CardTitle({ children, className = "", ...rest }: CardTitleProps) {
   );
 }
 
-export interface CardSubtitleProps extends HTMLAttributes<HTMLParagraphElement> {
-  children: ReactNode;
-}
+export type CardSubtitleProps = CardElementProps<HTMLParagraphElement>;
 
 function CardSubtitle({ children, className = "", ...rest }: CardSubtitleProps) {
   const subtitleClassName = `card__subtitle ${className}`.trim();
@@ -100,9 +99,7 @@ function CardSubtitle({ children, className = "", ...rest }: CardSubtitleProps) 
   );
 }
 
-export interface CardKeyValuePairRootProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
+export type CardKeyValuePairRootProps = CardElementProps<HTMLDivElement>;
 
 function CardKeyValuePairRoot({ children, className = "", ...rest }: CardKeyValuePairRootProps) {
   const keyValuePairClassName = `card__key-value-pair ${className}`.trim();
@@ -114,9 +111,7 @@ function CardKeyValuePairRoot({ children, className = "", ...rest }: CardKeyValu
   );
 }
 
-export interface CardKeyValuePairKeyProps extends HTMLAttributes<HTMLSpanElement> {
-  children: ReactNode;
-}
+export type CardKeyValuePairKeyProps = CardElementProps<HTMLSpanElement>;
 
 function CardKeyValuePairKey({ children, className = "", ...rest }: CardKeyValuePairKeyProps) {
   const keyClassName = `card__key ${className}`.trim();
@@ -163,9 +158,7 @@ const CardKeyValuePair = Object.assign(CardKeyValuePairRoot, {
   Value: CardKeyValuePairValue,
 });
 
-export interface CardActionProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
+export type CardActionProps = CardElementProps<HTMLDivElement>;
 
 function CardAction({ children, className = "", ...rest }: CardActionProps) {
   const actionClassName = `card__action ${className}`.trim();

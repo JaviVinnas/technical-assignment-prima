@@ -1,5 +1,6 @@
 import { memo } from "react";
 
+import type { BadgeProps } from "../../../../../components/atoms/Badge";
 import { Badge } from "../../../../../components/atoms/Badge";
 import type { UserPermission } from "../../../types";
 
@@ -27,7 +28,7 @@ export interface UserPermissionBadgeProps {
   className?: string;
 }
 
-type BadgeVariant = "accent-1" | "accent-2" | "accent-3" | "accent-4" | "default";
+type BadgeVariant = BadgeProps["variant"];
 
 /**
  * Maps UserPermission values to Badge variant values.

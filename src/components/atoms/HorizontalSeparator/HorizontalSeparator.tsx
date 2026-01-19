@@ -15,7 +15,7 @@ import "./HorizontalSeparator.css";
  * @param props - HorizontalSeparator configuration
  * @param props.className - Additional CSS classes applied to the separator
  */
-export interface HorizontalSeparatorProps extends HTMLAttributes<HTMLHRElement> {}
+export type HorizontalSeparatorProps = HTMLAttributes<HTMLHRElement>;
 
 export function HorizontalSeparator({ className = "", ...rest }: HorizontalSeparatorProps) {
   const separatorClassName = `horizontal-separator ${className}`.trim();

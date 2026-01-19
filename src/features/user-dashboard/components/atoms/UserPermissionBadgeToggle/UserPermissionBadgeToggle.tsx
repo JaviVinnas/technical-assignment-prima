@@ -1,3 +1,4 @@
+import type { BadgeToggleProps } from "../../../../../components/atoms/BadgeToggle";
 import { BadgeToggle } from "../../../../../components/atoms/BadgeToggle";
 import type { UserPermission } from "../../../types";
 
@@ -24,7 +25,7 @@ export interface UserPermissionBadgeToggleProps {
   onClick?: () => void;
 }
 
-type BadgeToggleVariant = "accent-1" | "accent-2" | "accent-3" | "accent-4" | "default";
+type BadgeToggleVariant = BadgeToggleProps["variant"];
 
 /**
  * Maps UserPermission values to BadgeToggle variant values.

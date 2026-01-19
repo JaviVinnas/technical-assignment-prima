@@ -33,11 +33,14 @@ export function CardGrid({
   ...rest
 }: CardGridProps) {
   const cardGridClassName = `card-grid ${className}`.trim();
-  const cardGridStyle = {
+  const cardGridStyle: React.CSSProperties & {
+    "--card-grid-min-column-width": string;
+    "--card-grid-gap": string;
+  } = {
     ...style,
     "--card-grid-min-column-width": minColumnWidth,
     "--card-grid-gap": gap,
-  } as React.CSSProperties;
+  };
 
   return (
     <section className={cardGridClassName} style={cardGridStyle} {...rest}>

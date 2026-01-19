@@ -24,7 +24,7 @@ export const UserPermissionValues = {
   GUEST: "guest",
   OWNER: "owner",
   INACTIVE: "inactive",
-} as const satisfies Record<string, UserPermission>;
+} as const satisfies Record<Uppercase<UserPermission>, UserPermission>;
 
 /**
  * Structure for persisted user dashboard state in localStorage.

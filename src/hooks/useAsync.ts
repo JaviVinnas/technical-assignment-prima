@@ -260,5 +260,14 @@ export function useAsync<T>(input: UseAsyncInput<T>, options?: UseAsyncOptions):
     };
   }, [data, refetchTrigger]);
 
-  return { ...state, retry } as UseAsyncResult<T>;
+  // Explicitly construct discriminated union to maintain type safety
+  if (state.isLoading) {
+    return { ...state, retry };
+  }
+
+  if (state.isError) {
+    return { ...state, retry };
+  }
+
+  return { ...state, retry };
 }

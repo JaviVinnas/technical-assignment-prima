@@ -11,8 +11,8 @@ import "./FiltersRow.css";
  *
  * @param props - FiltersRow configuration
  * @param props.label - Label text displayed above the filter options (required)
- * @param props.options - Array of option values to display (required)
- * @param props.selected - Array of currently selected option values (required)
+ * @param props.options - Array of option values to display (required, readonly)
+ * @param props.selected - Array of currently selected option values (required, readonly)
  * @param props.onToggle - Callback called when an option is toggled, receives the option value (required)
  * @param props.renderOption - Callback to render each option, receives (value, isSelected, onClick) (required)
  * @param props.className - Additional CSS classes applied to the container
@@ -20,8 +20,8 @@ import "./FiltersRow.css";
 export interface FiltersRowProps<T extends string | number>
   extends Omit<HTMLAttributes<HTMLElement>, "children" | "onToggle"> {
   label: string;
-  options: T[];
-  selected: T[];
+  options: readonly T[];
+  selected: readonly T[];
   onToggle: (value: T) => void;
   renderOption: (value: T, isSelected: boolean, onClick: () => void) => ReactNode;
 }

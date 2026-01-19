@@ -1,4 +1,10 @@
-import type { FormHTMLAttributes, InputHTMLAttributes } from "react";
+import type {
+  ChangeEvent,
+  FormEvent,
+  FormHTMLAttributes,
+  InputHTMLAttributes,
+  KeyboardEvent,
+} from "react";
 
 import { Button } from "../../atoms/Button";
 import { Input } from "../../atoms/Input";
@@ -48,7 +54,7 @@ export function SearchBox({
 }: SearchBoxProps) {
   const searchBoxClassName = `search-box ${className}`.trim();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange?.(event);
 
     if (autoSearchOnClear && event.target.value === "" && onSearch) {
@@ -56,13 +62,13 @@ export function SearchBox({
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && onSearch) {
       onSearch(event.currentTarget.value);
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (onSearch && typeof value === "string") {
       onSearch(value);

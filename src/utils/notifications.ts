@@ -5,6 +5,6 @@
  * implemented in the future. Provides consistent messaging across the application
  * for incomplete features.
  */
-export function showNotImplementedAlert(): void {
+export function showNotImplementedAlert() {
   alert("not implemented yet :(");
 }

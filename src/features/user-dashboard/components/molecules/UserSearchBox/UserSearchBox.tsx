@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useState } from "react";
+import { useState } from "react";
 
 import { SearchBox, type SearchBoxProps } from "../../../../../components/molecules/SearchBox";
 import { useUserDashboardContext } from "../../../context";
@@ -25,7 +25,7 @@ import "./UserSearchBox.css";
  * @param props.className - Additional CSS classes applied to the container
  */
 export interface UserSearchBoxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> {
+  extends Omit<SearchBoxProps, "value" | "onChange" | "onSearch"> {
   className?: string;
 }
 
