@@ -13,9 +13,9 @@ describe("CardGrid", () => {
     const { container } = render(
       <CardGrid minColumnWidth="200px" gap="20px">
         Children
-      </CardGrid>
+      </CardGrid>,
     );
-    
+
     const section = container.querySelector("section");
     expect(section).toHaveStyle({
       "--card-grid-min-column-width": "200px",
@@ -28,7 +28,7 @@ describe("CardGrid", () => {
       <CardGrid>
         <div data-testid="child-1">Child 1</div>
         <div data-testid="child-2">Child 2</div>
-      </CardGrid>
+      </CardGrid>,
     );
 
     expect(screen.getByTestId("child-1")).toBeInTheDocument();
@@ -36,7 +36,11 @@ describe("CardGrid", () => {
   });
 
   it("forwards additional HTML attributes", () => {
-    render(<CardGrid id="test-grid" aria-label="Grid container">Children</CardGrid>);
+    render(
+      <CardGrid id="test-grid" aria-label="Grid container">
+        Children
+      </CardGrid>,
+    );
     const section = screen.getByLabelText("Grid container");
     expect(section).toHaveAttribute("id", "test-grid");
   });

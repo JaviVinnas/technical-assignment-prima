@@ -55,13 +55,11 @@ describe("UserFiltersRow", () => {
     });
   });
 
+  it("renders with correct accessibility attributes", () => {
+    render(<UserFiltersRow selectedPermissions={[]} onToggle={vi.fn()} />);
 
-    it("renders with correct accessibility attributes", () => {
-      render(<UserFiltersRow selectedPermissions={[]} onToggle={vi.fn()} />);
-
-      const nav = screen.getByRole("navigation", { name: /user filters/i });
-      expect(nav).toBeInTheDocument();
-      expect(nav).toHaveClass("filters-row");
-    });
-
+    const nav = screen.getByRole("navigation", { name: /user filters/i });
+    expect(nav).toBeInTheDocument();
+    expect(nav).toHaveClass("filters-row");
+  });
 });

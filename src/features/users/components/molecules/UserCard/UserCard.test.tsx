@@ -115,7 +115,6 @@ describe("UserCard", () => {
       expect(viewDetailsButton).toBeEnabled();
     });
 
-
     it("View details button works without onViewDetails handler", () => {
       render(<UserCard user={mockUser} />);
 

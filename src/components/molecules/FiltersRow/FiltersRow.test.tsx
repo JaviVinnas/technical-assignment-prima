@@ -286,7 +286,7 @@ describe("FiltersRow", () => {
 
   describe("Custom Render Option", () => {
     it("calls renderOption function for each option", () => {
-      const mockRender = vi.fn((value, isSelected, onClick) => (
+      const mockRender = vi.fn((value, _isSelected, onClick) => (
         <button type="button" onClick={onClick} key={value}>
           {value}
         </button>
@@ -310,7 +310,7 @@ describe("FiltersRow", () => {
     });
 
     it("calls renderOption with correct isSelected state", () => {
-      const mockRender = vi.fn((value, isSelected, onClick) => (
+      const mockRender = vi.fn((value, _isSelected, onClick) => (
         <button type="button" onClick={onClick} key={value}>
           {value}
         </button>
@@ -336,10 +336,10 @@ describe("FiltersRow", () => {
       const user = userEvent.setup();
       const handleToggle = vi.fn();
       const customRender = (value: string, isSelected: boolean, onClick: () => void) => (
-        <div onClick={onClick} data-testid={`custom-${value}`} role="button" tabIndex={0}>
+        <button type="button" onClick={onClick} data-testid={`custom-${value}`}>
           <span>{value}</span>
           {isSelected && <span>ACTIVE</span>}
-        </div>
+        </button>
       );
 
       render(

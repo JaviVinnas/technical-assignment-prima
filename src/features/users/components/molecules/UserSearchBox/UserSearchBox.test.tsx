@@ -150,9 +150,7 @@ describe("UserSearchBox", () => {
     });
   });
 
-
   describe("Accessibility", () => {
-
     it("label has correct styling class", () => {
       render(<UserSearchBox id="test-search" value="" onChange={vi.fn()} />);
 
@@ -168,5 +166,4 @@ describe("UserSearchBox", () => {
       expect(section).toHaveClass("user-search-box");
     });
   });
-
 });

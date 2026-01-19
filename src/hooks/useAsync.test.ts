@@ -1,11 +1,6 @@
-import { act, renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 
-import {
-  isAsyncError,
-  isAsyncLoading,
-  isAsyncSuccess,
-  useAsync,
-} from "./useAsync";
+import { isAsyncError, isAsyncLoading, isAsyncSuccess, useAsync } from "./useAsync";
 
 /**
  * Unit tests for useAsync hook.

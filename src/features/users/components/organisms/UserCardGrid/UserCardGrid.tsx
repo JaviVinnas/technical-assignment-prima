@@ -1,8 +1,8 @@
 import { CardGrid } from "../../../../../components/organisms/CardGrid";
 import { EmptyState } from "../../../../../components/organisms/EmptyState";
 import { ErrorState } from "../../../../../components/organisms/ErrorState";
-import { showNotImplementedAlert } from "../../../../../utils";
 import { DEFAULT_SKELETON_COUNT, USER_QUERY_ASYNC_OPTIONS } from "../../../../../constants";
+import { showNotImplementedAlert } from "../../../../../utils";
 import { useUserDashboardContext } from "../../../context";
 import { useUsersQuery } from "../../../hooks/useUsersQuery";
 import type { User } from "../../../types";

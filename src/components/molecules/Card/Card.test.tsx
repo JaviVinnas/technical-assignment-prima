@@ -46,7 +46,7 @@ describe("Card", () => {
         <Card.KeyValuePair.Root>
           <Card.KeyValuePair.Key>Label:</Card.KeyValuePair.Key>
           <Card.KeyValuePair.Value>Value Content</Card.KeyValuePair.Value>
-        </Card.KeyValuePair.Root>
+        </Card.KeyValuePair.Root>,
       );
 
       expect(screen.getByText("Label:")).toHaveClass("card__key");
@@ -54,12 +54,8 @@ describe("Card", () => {
     });
 
     it("renders email link variant", () => {
-      render(
-        <Card.KeyValuePair.Value type="email">
-          test@example.com
-        </Card.KeyValuePair.Value>
-      );
-      
+      render(<Card.KeyValuePair.Value type="email">test@example.com</Card.KeyValuePair.Value>);
+
       const link = screen.getByRole("link");
       expect(link).toHaveAttribute("href", "mailto:test@example.com");
       expect(link).toHaveAttribute("target", "_blank");

@@ -164,7 +164,7 @@ describe("useLocalStorage", () => {
       act(() => {
         result.current[1]((prev) => ({
           ...prev,
-          searchQuery: prev.searchQuery + " second",
+          searchQuery: `${prev.searchQuery} second`,
         }));
       });
 
@@ -501,7 +501,7 @@ describe("useLocalStorage", () => {
       act(() => {
         result.current[1]((prev) => ({
           ...prev,
-          searchQuery: prev.searchQuery + " second",
+          searchQuery: `${prev.searchQuery} second`,
           selectedPermissions: ["admin"] as const,
         }));
       });

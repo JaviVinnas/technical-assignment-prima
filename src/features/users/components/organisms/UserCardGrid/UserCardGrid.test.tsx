@@ -426,78 +426,77 @@ describe("UserCardGrid", () => {
     });
   });
 
-    it("grid container is present", () => {
-      render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
+  it("grid container is present", () => {
+    render(
+      <UserCardGrid
+        users={mockUsers}
+        isLoading={false}
+        isError={false}
+        onRetry={mockOnRetry}
+        onViewDetails={mockOnViewDetails}
+      />,
+    );
 
-      expect(screen.getByRole("region", { name: /user grid/i })).toBeInTheDocument();
-    });
+    expect(screen.getByRole("region", { name: /user grid/i })).toBeInTheDocument();
+  });
 
-    it("user sees multiple cards rendered in grid container", () => {
-      render(
-        <UserCardGrid
-          users={mockUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
+  it("user sees multiple cards rendered in grid container", () => {
+    render(
+      <UserCardGrid
+        users={mockUsers}
+        isLoading={false}
+        isError={false}
+        onRetry={mockOnRetry}
+        onViewDetails={mockOnViewDetails}
+      />,
+    );
 
-      const grid = screen.getByRole("region", { name: /user grid/i });
-      const cards = within(grid).getAllByRole("article");
-      expect(cards.length).toBe(3);
-    });
+    const grid = screen.getByRole("region", { name: /user grid/i });
+    const cards = within(grid).getAllByRole("article");
+    expect(cards.length).toBe(3);
+  });
 
-    it("grid maintains structure with single card", () => {
-      const { container } = render(
-        <UserCardGrid
-          users={[mockUsers[0]]}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
+  it("grid maintains structure with single card", () => {
+    const { container } = render(
+      <UserCardGrid
+        users={[mockUsers[0]]}
+        isLoading={false}
+        isError={false}
+        onRetry={mockOnRetry}
+        onViewDetails={mockOnViewDetails}
+      />,
+    );
 
-      const grid = container.querySelector(".card-grid");
-      const cards = grid?.querySelectorAll("article");
-      expect(grid).toBeInTheDocument();
-      expect(cards?.length).toBe(1);
-    });
+    const grid = container.querySelector(".card-grid");
+    const cards = grid?.querySelectorAll("article");
+    expect(grid).toBeInTheDocument();
+    expect(cards?.length).toBe(1);
+  });
 
-    it("grid maintains structure with many cards", () => {
-      const manyUsers = Array.from({ length: 12 }, (_, i) => ({
-        name: `User ${i + 1}`,
-        role: `Role ${i + 1}`,
-        permission: "viewer" as const,
-        team: `Team ${i + 1}`,
-        contactInfo: `user${i + 1}@company.com`,
-      }));
+  it("grid maintains structure with many cards", () => {
+    const manyUsers = Array.from({ length: 12 }, (_, i) => ({
+      name: `User ${i + 1}`,
+      role: `Role ${i + 1}`,
+      permission: "viewer" as const,
+      team: `Team ${i + 1}`,
+      contactInfo: `user${i + 1}@company.com`,
+    }));
 
-      const { container } = render(
-        <UserCardGrid
-          users={manyUsers}
-          isLoading={false}
-          isError={false}
-          onRetry={mockOnRetry}
-          onViewDetails={mockOnViewDetails}
-        />,
-      );
+    const { container } = render(
+      <UserCardGrid
+        users={manyUsers}
+        isLoading={false}
+        isError={false}
+        onRetry={mockOnRetry}
+        onViewDetails={mockOnViewDetails}
+      />,
+    );
 
-      const grid = container.querySelector(".card-grid");
-      const cards = grid?.querySelectorAll("article");
-      expect(grid).toBeInTheDocument();
-      expect(cards?.length).toBe(12);
-    });
-
+    const grid = container.querySelector(".card-grid");
+    const cards = grid?.querySelectorAll("article");
+    expect(grid).toBeInTheDocument();
+    expect(cards?.length).toBe(12);
+  });
 
   describe("Grid Accessibility for Screen Readers", () => {
     it("grid uses semantic section element", () => {
@@ -529,6 +528,5 @@ describe("UserCardGrid", () => {
       const articles = container.querySelectorAll("article");
       expect(articles.length).toBe(3);
     });
-
   });
 });
