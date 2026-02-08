@@ -22,10 +22,16 @@ export const LocalStorageKeys = {
  * feature-specific types are defined inline here rather than imported.
  * This keeps the global hook self-contained while still providing type safety.
  */
+/**
+ * Inline UserPermission union to avoid circular dependency with features/users.
+ * Must stay in sync with UserPermission in src/features/users/types.ts.
+ */
+type StoredUserPermission = "admin" | "editor" | "viewer" | "guest" | "owner" | "inactive";
+
 export interface LocalStorageValueMap {
   [LocalStorageKeys.USER_DASHBOARD_STATE]: {
     searchQuery: string;
-    selectedPermissions: readonly string[];
+    selectedPermissions: readonly StoredUserPermission[];
   };
 }
 

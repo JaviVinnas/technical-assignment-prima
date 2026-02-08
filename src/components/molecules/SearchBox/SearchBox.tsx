@@ -58,7 +58,9 @@ export interface SearchBoxProps
   onSearch?: SearchBoxSearchHandler;
   onChange?: SearchBoxChangeHandler;
   autoSearchOnClear?: boolean;
-  formProps?: Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "className">;
+  formProps?: Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit" | "className"> & {
+    "data-testid"?: string;
+  };
 }
 
 export function SearchBox({
